@@ -3,6 +3,7 @@ package com.example.forst_android
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.forst_android.ui.main.MainFragment
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,5 +15,6 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, MainFragment.newInstance())
                 .commitNow()
         }
+        Timber.d("Hello from ${this.localClassName}")
     }
 }
