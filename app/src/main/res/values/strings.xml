@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">forst-android</string>
+    <string name="app_name">Forst</string>
+    <string name="nameTitle">Name:</string>
+    <string name="emailTitle">Email</string>
+    <string name="passwordTitle">Password</string>
+    <string name="login">Log In</string>
+    <string name="phoneNumberTitle">Phone Number</string>
+    <string name="verify">Verify</string>
+    <string name="verification_code">Verification Code</string>
+    <string name="verification_code_hint">Verification Code</string>
 </resources>

@@ -1,6 +1,7 @@
-package com.example.forst_android
+package com.example.forst_android.main
 
 import android.app.Application
+import com.example.forst_android.BuildConfig
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
