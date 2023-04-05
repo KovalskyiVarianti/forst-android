@@ -58,7 +58,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'com.google.firebase:firebase-crashlytics-ktx:18.3.6'
     implementation 'com.google.firebase:firebase-analytics-ktx:21.2.1'
-    implementation 'com.google.firebase:firebase-auth-ktx:21.1.0'
+    implementation 'com.google.firebase:firebase-auth-ktx:21.2.0'
     implementation 'androidx.core:core-ktx:1.9.0'
 
     // Tests
@@ -76,6 +76,10 @@ dependencies {
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
     implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
+
+    // Open Street Map
+    implementation 'org.osmdroid:osmdroid-android:6.1.15'
+    implementation 'com.github.MKergall:osmbonuspack:6.9.0'
 }
 
 kapt {

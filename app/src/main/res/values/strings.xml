@@ -8,4 +8,8 @@
     <string name="verify">Verify</string>
     <string name="verification_code">Verification Code</string>
     <string name="verification_code_hint">Verification Code</string>
+    <string name="home">Home</string>
+    <string name="map">Map</string>
+    <string name="setting">Setting</string>
+    <string name="account">Account</string>
 </resources>

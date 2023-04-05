@@ -1,19 +1,30 @@
 package com.example.forst_android.main.navigation
 
+import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.navigation.NavDirections
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class NavigationManager @Inject constructor() {
 
-    private val navigationRequest = MutableStateFlow<NavDirections?>(null)
-    internal fun getNavigationRequest(): StateFlow<NavDirections?> = navigationRequest.asStateFlow()
+    private val navigationRequest = MutableSharedFlow<NavDirections>(
+        replay = 1,
+        extraBufferCapacity = 0,
+        onBufferOverflow = BufferOverflow.DROP_LATEST
+    )
 
-    fun navigate(direction: NavDirections) {
-        navigationRequest.value = direction
+    internal fun getNavigationRequest(): SharedFlow<NavDirections> =
+        navigationRequest.asSharedFlow()
+
+    fun navigate(lifecycleScope: LifecycleCoroutineScope, direction: NavDirections) {
+        lifecycleScope.launch {
+            navigationRequest.emit(direction)
+        }
     }
 }

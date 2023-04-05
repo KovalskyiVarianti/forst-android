@@ -133,7 +133,10 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
         }
 
         fun onVerificationSuccess() {
-            navigationManager.navigate(AuthFragmentDirections.actionAuthFragmentToHomeFragment())
+            navigationManager.navigate(
+                lifecycleScope,
+                AuthFragmentDirections.actionAuthFragmentToMainFragment()
+            )
         }
 
         when (result) {

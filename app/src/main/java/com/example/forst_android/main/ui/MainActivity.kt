@@ -36,11 +36,17 @@ class MainActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 mainViewModel.getEntryPoint().collect { entryPoint ->
                     when (entryPoint) {
-                        MainEntryPoint.Home -> {
-                            navigationManager.navigate(SplashFragmentDirections.actionSplashFragmentToHomeFragment())
+                        MainEntryPoint.Main -> {
+                            navigationManager.navigate(
+                                lifecycleScope,
+                                SplashFragmentDirections.actionSplashFragmentToMainFragment()
+                            )
                         }
                         MainEntryPoint.Login -> {
-                            navigationManager.navigate(SplashFragmentDirections.actionSplashFragmentToAuthFragment())
+                            navigationManager.navigate(
+                                lifecycleScope,
+                                SplashFragmentDirections.actionSplashFragmentToAuthFragment()
+                            )
                         }
                         MainEntryPoint.Splash -> {
                             // Already on the splash screen
@@ -52,15 +58,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initNavigation() {
-        val navFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
+        val navFragment = supportFragmentManager.findFragmentById(R.id.activityFragmentContainer)
         val navController = (navFragment as? NavHostFragment)?.navController
         lifecycleScope.launch {
             navigationManager.getNavigationRequest()
                 .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
                 .collect { direction ->
-                    direction?.let {
-                        navController?.navigate(it)
-                    }
+                    navController?.navigate(direction)
                 }
         }
     }
