@@ -1,6 +1,7 @@
 package com.example.forst_android.auth.data.service
 
 import android.content.Context
+import com.example.forst_android.R
 import com.example.forst_android.auth.domain.entity.CodeVerificationResult
 import com.example.forst_android.auth.domain.entity.PhoneNumberVerificationResult
 import com.example.forst_android.auth.domain.service.AuthService
@@ -20,7 +21,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class FirebaseAuthService @Inject constructor(
-    @ActivityContext private val context: Context
+    @ActivityContext context: Context
 ) : AuthService {
 
     private val activity = context as MainActivity
@@ -55,6 +56,11 @@ class FirebaseAuthService @Inject constructor(
     }
 
     override fun verifyPhone(phoneNumber: String): StateFlow<PhoneNumberVerificationResult> {
+        if (isValidNumber(phoneNumber).not()) {
+            phoneNumberVerificationResult.value = PhoneNumberVerificationResult.Failed(
+                activity.getString(R.string.phone_format_error_message)
+            )
+        }
         val options = PhoneAuthOptions.newBuilder(Firebase.auth)
             .setActivity(activity)
             .setPhoneNumber(phoneNumber)
@@ -81,4 +87,7 @@ class FirebaseAuthService @Inject constructor(
         }
         return codeVerificationResult.asStateFlow()
     }
+
+    private fun isValidNumber(phoneNumber: String) =
+        phoneNumber.matches("^[+]\\d{10,13}\$".toRegex())
 }

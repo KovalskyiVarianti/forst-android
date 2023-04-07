@@ -35,12 +35,10 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.phoneLoginButton.setOnClickListener {
-            val phoneNumber = "+${binding.phoneNumberInput.text}"
-            if (phoneNumber.isNotBlank()) {
-                lifecycleScope.launch {
-                    authService.verifyPhone(phoneNumber).collect { result ->
-                        processPhoneVerificationResult(result)
-                    }
+            val phoneNumber = binding.phoneNumberInput.text.toString()
+            lifecycleScope.launch {
+                authService.verifyPhone("+$phoneNumber").collect { result ->
+                    processPhoneVerificationResult(result)
                 }
             }
         }
