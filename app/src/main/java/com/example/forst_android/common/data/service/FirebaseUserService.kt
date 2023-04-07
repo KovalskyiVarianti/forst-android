@@ -15,6 +15,9 @@ class FirebaseUserService @Inject constructor() : UserService {
     override val userUID
         get() = firebaseAuth.uid
 
+    override val phoneNumber
+        get() = firebaseAuth.currentUser?.phoneNumber
+
     override val userEmail
         get() = firebaseAuth.currentUser?.email
 

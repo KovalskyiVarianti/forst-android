@@ -4,6 +4,7 @@ import android.net.Uri
 
 interface UserService {
     val userUID: String?
+    val phoneNumber: String?
     val userEmail: String?
     val name: String?
     val photoUrl: Uri?
