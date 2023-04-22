@@ -23,7 +23,7 @@
             app:cardCornerRadius="50dp"
             app:contentPaddingLeft="13dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/accountIcon"
+            app:layout_constraintEnd_toStartOf="@id/account_icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -32,7 +32,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="Cluster name test"
                 android:textColor="@color/on_background"
                 android:textSize="20sp"
                 app:drawableEndCompat="@drawable/icon_arrow_drop_down"
@@ -40,7 +39,7 @@
         </androidx.cardview.widget.CardView>
 
         <ImageView
-            android:id="@+id/accountIcon"
+            android:id="@+id/account_icon"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="match_parent"
             android:contentDescription="@string/account"

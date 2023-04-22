@@ -1,12 +1,13 @@
 package com.example.forst_android.clusters.ui.dropdown
 
 import com.example.forst_android.clusters.domain.ClusterEntity
+import com.example.forst_android.common.ui.ItemClickListener
 import javax.inject.Inject
 
 class ClusterDropdownDataMapper @Inject constructor() {
     fun map(
         clusterEntities: List<ClusterEntity>,
-        onSelectedListener: ClusterDropdownOnSelectedListener
+        onSelectedListener: ItemClickListener
     ): ClusterDropdownData {
         val (selectedClusters, otherClusters) = clusterEntities.partition { it.isSelected }
         val selected = selectedClusters.first()

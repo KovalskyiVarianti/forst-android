@@ -4,9 +4,10 @@ import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import com.example.forst_android.common.ui.ItemClickListener
 
 class ClusterPopupAdapter(
-    private val itemOnClickListener: ClusterDropdownOnSelectedListener
+    private val itemOnClickListener: ItemClickListener
 ) : ListAdapter<ClusterPopupItem, ClusterPopupItemHolder>(ClusterItemDiffCallback) {
     private companion object ClusterItemDiffCallback : DiffUtil.ItemCallback<ClusterPopupItem>() {
         override fun areItemsTheSame(

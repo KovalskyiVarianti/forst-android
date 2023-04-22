@@ -1,9 +1,9 @@
 package com.example.forst_android.clusters.ui.dropdown
 
-typealias ClusterDropdownOnSelectedListener = (id: String) -> Unit
+import com.example.forst_android.common.ui.ItemClickListener
 
 data class ClusterDropdownData(
     val selectedCluster: ClusterPopupItem,
     val otherClusters: List<ClusterPopupItem>,
-    val onSelected: ClusterDropdownOnSelectedListener
+    val onSelected: ItemClickListener
 )

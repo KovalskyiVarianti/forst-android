@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_auth">
         <action
             android:id="@+id/action_authFragment_to_homeFragment"
-            app:destination="@id/chatsFragment"
+            app:destination="@id/homeFragment"
             app:launchSingleTop="true"
             app:popUpTo="@id/authFragment"
             app:popUpToInclusive="true" />
@@ -59,6 +59,9 @@
         <action
             android:id="@+id/action_homeFragment_to_clusterJoinFragment"
             app:destination="@id/clusterJoinFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
 
     <fragment
@@ -66,6 +69,12 @@
         android:name="com.example.forst_android.account.ui.AccountFragment"
         android:label="AccountFragment"
         tools:layout="@layout/fragment_account" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.forst_android.settings.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings"/>
 
     <fragment
         android:id="@+id/clusterEntryFragment"

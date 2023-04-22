@@ -3,19 +3,66 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/primary"
+        android:elevation="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            app:cardBackgroundColor="@color/background"
+            app:cardCornerRadius="50dp"
+            app:contentPaddingLeft="13dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/settingsIcon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/selectedClusterName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textColor="@color/on_background"
+                android:textSize="20sp"
+                app:drawableEndCompat="@drawable/icon_arrow_drop_down"
+                tools:text="Cluster name" />
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/settingsIcon"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/account"
+            android:padding="10dp"
+            android:src="@drawable/icon_settings"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/on_primary" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/clusterList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/background"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constrainedHeight="true"
+        app:layout_constraintHeight_max="200dp"
         app:layout_constraintBottom_toTopOf="@id/createButton"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         tools:itemCount="12"
-        tools:listitem="@layout/item_cluster_popup"/>
+        tools:listitem="@layout/item_cluster_popup" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/createButton"

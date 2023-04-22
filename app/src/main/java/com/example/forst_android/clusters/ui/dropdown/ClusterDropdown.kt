@@ -3,15 +3,18 @@ package com.example.forst_android.clusters.ui.dropdown
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
+import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.View
 import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.navigation.NavDirections
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.forst_android.R
+import com.example.forst_android.common.ui.ItemClickListener
 import com.example.forst_android.databinding.ViewClustersPopupBinding
+import com.example.forst_android.home.ui.HomeFragmentDirections
 
 class ClusterDropdown @JvmOverloads constructor(
     context: Context,
@@ -28,53 +31,59 @@ class ClusterDropdown @JvmOverloads constructor(
     }
 
     fun init(
-        anchor: View,
         clusterDropdownData: ClusterDropdownData,
-        onShow: () -> Unit,
-        onHide: () -> Unit,
-        onJoin: () -> Unit,
-        onCreate: () -> Unit,
+        onNavigated: (navDirections: NavDirections) -> Unit
     ) {
         text = clusterDropdownData.selectedCluster.name
+        popupBinding.selectedClusterName.text = clusterDropdownData.selectedCluster.name
         setOnClickListener {
             if (popupWindow == null) {
                 popupWindow = PopupWindow(
                     WindowManager.LayoutParams.MATCH_PARENT,
-                    getDialogHeight(context.resources.displayMetrics.heightPixels)
+                    WindowManager.LayoutParams.WRAP_CONTENT,
                 ).apply {
                     isOutsideTouchable = true
-                    contentView = popupBinding.root
-                    setOnDismissListener { onHide() }
+                    contentView = setupPopupBinding(clusterDropdownData.onSelected, onNavigated)
                     setBackgroundDrawable(popupBackgroundDrawable)
-                }
-                popupBinding.createButton.setOnClickListener {
-                    onCreate()
-                    popupWindow?.dismiss()
-                }
-                popupBinding.joinButton.setOnClickListener {
-                    onJoin()
-                    popupWindow?.dismiss()
-                }
-                popupBinding.clusterList.apply {
-                    adapter = ClusterPopupAdapter { id ->
-                        clusterDropdownData.onSelected(id)
-                        popupWindow?.dismiss()
-                    }
-                    addItemDecoration(DividerItemDecoration(context, LinearLayout.VERTICAL))
                 }
             }
             (popupBinding.clusterList.adapter as? ClusterPopupAdapter)?.submitList(
                 clusterDropdownData.otherClusters
             )
-            if (popupWindow?.isShowing == true) {
-                onHide()
-                popupWindow?.dismiss()
-            } else {
-                onShow()
-                popupWindow?.showAsDropDown(anchor)
-            }
+            popupWindow?.showAtLocation(this, Gravity.TOP, 0, 0)
         }
     }
+
+    private fun setupPopupBinding(
+        onSelected: ItemClickListener,
+        onNavigated: (navDirections: NavDirections) -> Unit
+    ) = popupBinding.apply {
+        createButton.setOnClickListener {
+            onNavigated(
+                HomeFragmentDirections.actionHomeFragmentToClusterCreateFragment()
+            )
+            popupWindow?.dismiss()
+        }
+        joinButton.setOnClickListener {
+            onNavigated(
+                HomeFragmentDirections.actionHomeFragmentToClusterJoinFragment()
+            )
+            popupWindow?.dismiss()
+        }
+        clusterList.apply {
+            adapter = ClusterPopupAdapter { id ->
+                onSelected(id)
+                popupWindow?.dismiss()
+            }
+            maxHeight = getDialogHeight(context.resources.displayMetrics.heightPixels)
+            addItemDecoration(DividerItemDecoration(context, LinearLayout.VERTICAL))
+        }
+        settingsIcon.setOnClickListener {
+            popupWindow?.dismiss()
+            onNavigated(HomeFragmentDirections.actionHomeFragmentToSettingsFragment())
+        }
+        selectedClusterName.setOnClickListener { popupWindow?.dismiss() }
+    }.root
 
     private fun getDialogHeight(screenHeight: Int) = screenHeight / 2
 }

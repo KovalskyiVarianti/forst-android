@@ -48,40 +48,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
                 homeViewModel.clusterDropdownData.collect { clusterData ->
-                    binding.clusterDropdown.init(
-                        binding.toolbar,
-                        clusterData,
-                        onShow = {
-                            binding.accountIcon.setImageResource(R.drawable.icon_setting)
-                            binding.accountIcon.setOnClickListener {
-                                navigationManager.navigate(
-                                    lifecycleScope,
-                                    HomeFragmentDirections.actionMainFragmentToAccountFragment()
-                                )
-                            }
-                        },
-                        onHide = {
-                            binding.accountIcon.setImageResource(R.drawable.icon_account)
-                            binding.accountIcon.setOnClickListener {
-                                navigationManager.navigate(
-                                    lifecycleScope,
-                                    HomeFragmentDirections.actionMainFragmentToAccountFragment()
-                                )
-                            }
-                        },
-                        onJoin = {
-                            navigationManager.navigate(
-                                lifecycleScope,
-                                HomeFragmentDirections.actionHomeFragmentToClusterJoinFragment()
-                            )
-                        },
-                        onCreate = {
-                            navigationManager.navigate(
-                                lifecycleScope,
-                                HomeFragmentDirections.actionHomeFragmentToClusterCreateFragment()
-                            )
-                        },
-                    )
+                    binding.clusterDropdown.init(clusterData) {
+                        navigationManager.navigate(lifecycleScope, it)
+                    }
                 }
             }
         }

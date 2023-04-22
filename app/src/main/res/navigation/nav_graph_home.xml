@@ -3,7 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_main"
-    app:startDestination="@id/mapFragment">
+    app:startDestination="@id/chatToggleFragment">
+
+    <fragment
+        android:id="@+id/chatToggleFragment"
+        android:name="com.example.forst_android.chats.toggle.ui.ChatToggleFragment"
+        android:label="ChatsFragment"
+        tools:layout="@layout/fragment_chat_toggle"/>
 
     <fragment
         android:id="@+id/mapFragment"
