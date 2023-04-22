@@ -47,7 +47,7 @@ android {
 
 dependencies {
     // Android
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.10.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -55,11 +55,11 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.10.0'
     implementation 'com.google.firebase:firebase-crashlytics-ktx:18.3.6'
     implementation 'com.google.firebase:firebase-analytics-ktx:21.2.1'
     implementation 'com.google.firebase:firebase-auth-ktx:21.2.0'
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.10.0'
 
     // Tests
     testImplementation 'junit:junit:4.13.2'
@@ -80,6 +80,13 @@ dependencies {
     // Open Street Map
     implementation 'org.osmdroid:osmdroid-android:6.1.15'
     implementation 'com.github.MKergall:osmbonuspack:6.9.0'
+
+    def room_version = "2.5.1"
+
+    implementation "androidx.room:room-ktx:$room_version"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 }
 
 kapt {

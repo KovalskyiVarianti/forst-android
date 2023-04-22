@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/homeFragment"
-        android:icon="@drawable/icon_home"
-        android:title="@string/home"
+        android:id="@+id/chatsFragment"
+        android:icon="@drawable/icon_message"
+        android:title="@string/chats"
         />
     <item
         android:id="@+id/mapFragment"

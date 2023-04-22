@@ -36,10 +36,16 @@ class MainActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 mainViewModel.getEntryPoint().collect { entryPoint ->
                     when (entryPoint) {
-                        MainEntryPoint.Main -> {
+                        MainEntryPoint.ClusterEntry -> {
                             navigationManager.navigate(
                                 lifecycleScope,
-                                SplashFragmentDirections.actionSplashFragmentToMainFragment()
+                                SplashFragmentDirections.actionSplashFragmentToClusterEntryFragment()
+                            )
+                        }
+                        MainEntryPoint.Home -> {
+                            navigationManager.navigate(
+                                lifecycleScope,
+                                SplashFragmentDirections.actionSplashFragmentToHomeFragment()
                             )
                         }
                         MainEntryPoint.Login -> {
