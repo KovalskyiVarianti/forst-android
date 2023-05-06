@@ -7,7 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.forst_android.R
 import com.example.forst_android.common.ui.viewBinding
 import com.example.forst_android.databinding.FragmentClusterEntryBinding
-import com.example.forst_android.main.navigation.NavigationManager
+import com.example.forst_android.main.navigation.MainNavigationManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -17,20 +17,20 @@ class ClusterEntryFragment : Fragment(R.layout.fragment_cluster_entry) {
     private val binding: FragmentClusterEntryBinding by viewBinding()
 
     @Inject
-    lateinit var navigationManager: NavigationManager
+    lateinit var mainNavigationManager: MainNavigationManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
             createButton.setOnClickListener {
-                navigationManager.navigate(
+                mainNavigationManager.navigate(
                     lifecycleScope,
                     ClusterEntryFragmentDirections.actionClusterEntryFragmentToClusterCreateFragment()
                 )
             }
             joinButton.setOnClickListener {
-                navigationManager.navigate(
+                mainNavigationManager.navigate(
                     lifecycleScope,
                     ClusterEntryFragmentDirections.actionClusterEntryFragmentToClusterJoinFragment()
                 )

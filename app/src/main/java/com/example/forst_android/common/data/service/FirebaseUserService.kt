@@ -6,7 +6,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject
+import kotlin.coroutines.resume
 
 class FirebaseUserService @Inject constructor() : UserService {
 
@@ -42,11 +44,11 @@ class FirebaseUserService @Inject constructor() : UserService {
         firebaseAuth.signOut()
     }
 
-    override suspend fun updateName(name: String) {
+    override suspend fun updateName(name: String) = suspendCancellableCoroutine {
         firebaseAuth.currentUser?.updateProfile(
             UserProfileChangeRequest.Builder()
                 .setDisplayName(name)
                 .build()
-        )
+        )?.addOnCompleteListener { _ -> it.resume(Unit) }
     }
 }

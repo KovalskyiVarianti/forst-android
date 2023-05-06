@@ -9,11 +9,14 @@
         android:id="@+id/chatToggleFragment"
         android:name="com.example.forst_android.chats.toggle.ui.ChatToggleFragment"
         android:label="ChatsFragment"
-        tools:layout="@layout/fragment_chat_toggle"/>
+        tools:layout="@layout/fragment_chat_toggle">
+    </fragment>
 
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.example.forst_android.map.ui.MapFragment"
         android:label="MapFragment"
         tools:layout="@layout/fragment_map" />
+
+
 </navigation>

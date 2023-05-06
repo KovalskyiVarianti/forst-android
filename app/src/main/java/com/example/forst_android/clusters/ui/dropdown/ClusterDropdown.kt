@@ -58,15 +58,9 @@ class ClusterDropdown @JvmOverloads constructor(
         onSelected: ItemClickListener,
         onNavigated: (navDirections: NavDirections) -> Unit
     ) = popupBinding.apply {
-        createButton.setOnClickListener {
+        addButton.setOnClickListener {
             onNavigated(
-                HomeFragmentDirections.actionHomeFragmentToClusterCreateFragment()
-            )
-            popupWindow?.dismiss()
-        }
-        joinButton.setOnClickListener {
-            onNavigated(
-                HomeFragmentDirections.actionHomeFragmentToClusterJoinFragment()
+                HomeFragmentDirections.actionHomeFragmentToClusterEntryFragment()
             )
             popupWindow?.dismiss()
         }

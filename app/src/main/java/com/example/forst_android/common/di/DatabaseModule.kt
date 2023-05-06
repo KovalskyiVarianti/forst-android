@@ -2,7 +2,8 @@ package com.example.forst_android.common.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.forst_android.common.data.database.UserDatabase
+import com.example.forst_android.common.data.database.ClusterDatabase
+import com.google.firebase.database.FirebaseDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,15 +17,23 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun userDatabase(
+    fun clusterDatabase(
         @ApplicationContext context: Context,
-    ): UserDatabase {
+    ): ClusterDatabase {
         return Room.databaseBuilder(
             context.applicationContext,
-            UserDatabase::class.java,
-            "user"
+            ClusterDatabase::class.java,
+            "cluster"
         )
             .fallbackToDestructiveMigration()
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun realtimeDatabase(): FirebaseDatabase {
+        return FirebaseDatabase.getInstance(
+            "https://forst-de0a8-default-rtdb.europe-west1.firebasedatabase.app"
+        )
     }
 }

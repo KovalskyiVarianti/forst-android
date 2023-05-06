@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.example.forst_android.R
 import com.example.forst_android.databinding.ActivityMainBinding
-import com.example.forst_android.main.navigation.NavigationManager
+import com.example.forst_android.main.navigation.MainNavigationManager
 import com.example.forst_android.splash.ui.SplashFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     private val mainViewModel: MainViewModel by viewModels()
 
     @Inject
-    lateinit var navigationManager: NavigationManager
+    lateinit var mainNavigationManager: MainNavigationManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,19 +37,19 @@ class MainActivity : AppCompatActivity() {
                 mainViewModel.getEntryPoint().collect { entryPoint ->
                     when (entryPoint) {
                         MainEntryPoint.ClusterEntry -> {
-                            navigationManager.navigate(
+                            mainNavigationManager.navigate(
                                 lifecycleScope,
                                 SplashFragmentDirections.actionSplashFragmentToClusterEntryFragment()
                             )
                         }
                         MainEntryPoint.Home -> {
-                            navigationManager.navigate(
+                            mainNavigationManager.navigate(
                                 lifecycleScope,
                                 SplashFragmentDirections.actionSplashFragmentToHomeFragment()
                             )
                         }
                         MainEntryPoint.Login -> {
-                            navigationManager.navigate(
+                            mainNavigationManager.navigate(
                                 lifecycleScope,
                                 SplashFragmentDirections.actionSplashFragmentToAuthFragment()
                             )
@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
         val navFragment = supportFragmentManager.findFragmentById(R.id.activityFragmentContainer)
         val navController = (navFragment as? NavHostFragment)?.navController
         lifecycleScope.launch {
-            navigationManager.getNavigationRequest()
+            mainNavigationManager.getNavigationRequest()
                 .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
                 .collect { direction ->
                     navController?.navigate(direction)

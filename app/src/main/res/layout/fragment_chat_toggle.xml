@@ -22,7 +22,7 @@
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/background_variant"
+        android:background="@color/background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,9 +34,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         android:src="@drawable/icon_add_private"
-        app:backgroundTint="@color/background"
+        app:backgroundTint="@color/primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/on_background" />
+        app:tint="@color/on_primary" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

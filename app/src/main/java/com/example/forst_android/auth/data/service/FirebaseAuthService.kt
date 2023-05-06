@@ -5,6 +5,8 @@ import com.example.forst_android.R
 import com.example.forst_android.auth.domain.entity.CodeVerificationResult
 import com.example.forst_android.auth.domain.entity.PhoneNumberVerificationResult
 import com.example.forst_android.auth.domain.service.AuthService
+import com.example.forst_android.common.data.database.UserRealtimeDatabase
+import com.example.forst_android.common.data.database.UserRealtimeEntity
 import com.example.forst_android.main.ui.MainActivity
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
@@ -21,7 +23,8 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class FirebaseAuthService @Inject constructor(
-    @ActivityContext context: Context
+    @ActivityContext context: Context,
+    private val userRealtimeDatabase: UserRealtimeDatabase,
 ) : AuthService {
 
     private val activity = context as MainActivity
@@ -76,7 +79,19 @@ class FirebaseAuthService @Inject constructor(
         code: String
     ): StateFlow<CodeVerificationResult> {
         val credentials = PhoneAuthProvider.getCredential(verificationId, code)
-        Firebase.auth.signInWithCredential(credentials).addOnCompleteListener { task ->
+        Firebase.auth.signInWithCredential(credentials).continueWith { task ->
+            if (task.isSuccessful) {
+                val user = task.result.user
+                userRealtimeDatabase.createUser(
+                    UserRealtimeEntity(
+                        user?.uid,
+                        user?.displayName,
+                        user?.phoneNumber,
+                        user?.photoUrl?.toString()
+                    )
+                )
+            }
+        }.addOnCompleteListener { task ->
             codeVerificationResult.value = if (task.isSuccessful) {
                 Timber.d("Successful Sign In with verificationId: $verificationId and code: $code")
                 CodeVerificationResult.Success

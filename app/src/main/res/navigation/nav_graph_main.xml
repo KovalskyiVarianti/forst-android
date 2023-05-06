@@ -54,14 +54,17 @@
             android:id="@+id/action_mainFragment_to_accountFragment"
             app:destination="@id/accountFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_clusterCreateFragment"
-            app:destination="@id/clusterCreateFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_clusterJoinFragment"
-            app:destination="@id/clusterJoinFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_messagesPrivateFragment"
+            app:destination="@id/messagesPrivateFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_clusterEntryFragment"
+            app:destination="@id/clusterEntryFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_chatPrivateCreateFragment"
+            app:destination="@id/chatPrivateCreateFragment" />
     </fragment>
 
     <fragment
@@ -74,7 +77,7 @@
         android:id="@+id/settingsFragment"
         android:name="com.example.forst_android.settings.SettingsFragment"
         android:label="SettingsFragment"
-        tools:layout="@layout/fragment_settings"/>
+        tools:layout="@layout/fragment_settings" />
 
     <fragment
         android:id="@+id/clusterEntryFragment"
@@ -91,21 +94,51 @@
 
     <fragment
         android:id="@+id/clusterCreateFragment"
-        android:name="com.example.forst_android.clusters.ui.create.ClusterCreateFragment"
+        android:name="com.example.forst_android.clusters.create.ui.ClusterCreateFragment"
         android:label="ClusterCreateFragment"
-        tools:layout="@layout/fragment_cluster_create" >
+        tools:layout="@layout/fragment_cluster_create">
         <action
             android:id="@+id/action_clusterCreateFragment_to_homeFragment"
             app:destination="@id/homeFragment"
             app:launchSingleTop="true"
-            app:popUpTo="@id/splashFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
         android:id="@+id/clusterJoinFragment"
-        android:name="com.example.forst_android.clusters.ui.ClusterJoinFragment"
+        android:name="com.example.forst_android.clusters.join.ui.ClusterJoinFragment"
         android:label="ClusterJoinFragment"
-        tools:layout="@layout/fragment_cluster_join" />
+        tools:layout="@layout/fragment_cluster_join">
+        <action
+            android:id="@+id/action_clusterJoinFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/messagesPrivateFragment"
+        android:name="com.example.forst_android.message.priv.ui.MessagesPrivateFragment"
+        android:label="MessagesPrivateFragment"
+        tools:layout="@layout/fragment_messages_private">
+        <argument
+            android:name="chatId"
+            app:argType="string" />
+        <argument
+            android:name="interlocutorId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/chatPrivateCreateFragment"
+        android:name="com.example.forst_android.chats.priv.create.ui.ChatPrivateCreateFragment"
+        android:label="ChatPrivateCreateFragment"
+        tools:layout="@layout/fragment_chat_private_create">
+        <action
+            android:id="@+id/action_chatPrivateCreateFragment_to_messagesPrivateFragment"
+            app:destination="@id/messagesPrivateFragment"
+            app:popUpTo="@id/homeFragment" />
+    </fragment>
 </navigation>

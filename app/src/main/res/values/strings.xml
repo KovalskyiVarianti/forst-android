@@ -17,4 +17,12 @@
     <string name="events">Events</string>
     <string name="privates">Privates</string>
     <string name="groups">Groups</string>
+    <string name="join_cluster">Join cluster</string>
+    <string name="create_cluster">Create cluster</string>
+    <string name="open_chat">Open Chat</string>
+    <string name="open_chat_you">Open Chat (you)</string>
+    <string name="add_cluster">Add Cluster</string>
+    <string name="sharing_location">Sharing location</string>
+    <string name="location_is_hidden">Location is hidden</string>
+    <string name="user_name_empty">Put your username here</string>
 </resources>

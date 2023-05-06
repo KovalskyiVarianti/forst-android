@@ -12,6 +12,8 @@ class DefaultGetAccountDataUseCase @Inject constructor(
         return AccountData(
             userService.userUID,
             userService.phoneNumber,
+            userService.name?.takeIf { it.isNotBlank() },
+            userService.photoUrl,
         )
     }
 }

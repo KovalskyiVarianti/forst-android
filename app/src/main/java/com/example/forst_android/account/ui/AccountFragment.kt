@@ -28,14 +28,20 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                 .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
                 .collect(::processAccountDataState)
         }
+        binding.changeNameButton.setOnClickListener {
+            val newUserName = binding.userNameInput.text.toString().takeIf { it.isNotBlank() }
+            accountViewModel.changeUserName(newUserName)
+            binding.userNameInput.setText("")
+        }
+
     }
 
     private fun processAccountDataState(accountDataState: AccountDataState) {
         when(accountDataState) {
             is AccountDataState.Data -> {
                 binding.apply {
-                    accountId.text = accountDataState.id.orEmpty()
                     accountPhoneNumber.text = accountDataState.phoneNumber.orEmpty()
+                    userNameInput.hint = accountDataState.userName ?: getString(R.string.user_name_empty)
                 }
             }
             AccountDataState.Loading -> {

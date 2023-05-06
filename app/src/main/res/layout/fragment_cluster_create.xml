@@ -8,7 +8,8 @@
         android:id="@+id/clusterCreateTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create cluster"
+        android:layout_marginTop="50dp"
+        android:text="@string/create_cluster"
         android:textColor="@color/on_background"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,11 +21,13 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:hint="Cluster name"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="50dp"
+        android:hint="Name of the cluster"
         android:textColorHint="@color/on_background"
         app:boxStrokeColor="@color/on_background"
-        app:hintTextColor="@color/on_background"
+        app:expandedHintEnabled="false"
+        app:hintAnimationEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/clusterCreateTitle">
@@ -37,13 +40,37 @@
             android:textCursorDrawable="@null" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/clusterPrivacyStateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Should the cluster be private?"
+        android:textColor="@color/on_background"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@id/clusterPrivacyStateButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clusterNameLayout" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/clusterPrivacyStateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/clusterPrivacyStateTitle"
+        app:layout_constraintTop_toBottomOf="@id/clusterNameLayout"
+        app:thumbTint="@color/on_background"
+        app:trackTint="@color/background_variant"/>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/clusterCreateButton"
         android:layout_width="wrap_content"
-        android:text="Create new cluster"
         android:layout_height="wrap_content"
+        android:text="Create new cluster"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/clusterNameLayout" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,9 +2,9 @@ package com.example.forst_android.main.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.forst_android.clusters.data.DefaultClustersRepository
 import com.example.forst_android.common.coroutines.CoroutineDispatchers
 import com.example.forst_android.common.domain.service.UserService
+import com.example.forst_android.main.domain.IsJoinedClustersExistUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,16 +15,16 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val userService: UserService,
-    private val clustersRepository: DefaultClustersRepository,
+    private val isJoinedClustersExistUseCase: IsJoinedClustersExistUseCase,
     private val coroutineDispatchers: CoroutineDispatchers,
 ) : ViewModel() {
 
     private val entryPoint = MutableStateFlow<MainEntryPoint>(MainEntryPoint.Splash)
 
     fun getEntryPoint(): StateFlow<MainEntryPoint> {
-        viewModelScope.launch(coroutineDispatchers.main) {
+        viewModelScope.launch(coroutineDispatchers.io) {
             if (userService.isLoggedIn) {
-                entryPoint.value = if (clustersRepository.isEmpty().not()) {
+                entryPoint.value = if (isJoinedClustersExistUseCase.isJoinedClustersExist()) {
                     MainEntryPoint.Home
                 } else {
                     MainEntryPoint.ClusterEntry

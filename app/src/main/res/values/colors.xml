@@ -5,7 +5,9 @@
     <color name="primary">#FF000000</color>
     <color name="on_primary">#FFFFFFFF</color>
     <color name="on_primary_variant">#A2A0A0</color>
-    <color name="background">#FFFFFFFF</color>
+    <color name="background">#EBECF3</color>
     <color name="background_variant">#4A4A4A</color>
     <color name="on_background">#FF000000</color>
+    <color name="surface">#000000</color>
+    <color name="on_surface">#FFFFFF</color>
 </resources>

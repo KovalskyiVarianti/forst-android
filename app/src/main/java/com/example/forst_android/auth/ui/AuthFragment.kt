@@ -14,7 +14,7 @@ import com.example.forst_android.common.ui.hide
 import com.example.forst_android.common.ui.show
 import com.example.forst_android.common.ui.viewBinding
 import com.example.forst_android.databinding.FragmentAuthBinding
-import com.example.forst_android.main.navigation.NavigationManager
+import com.example.forst_android.main.navigation.MainNavigationManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,7 +26,7 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
     private val authViewModel: AuthViewModel by viewModels()
 
     @Inject
-    lateinit var navigationManager: NavigationManager
+    lateinit var mainNavigationManager: MainNavigationManager
 
     @Inject
     lateinit var authService: AuthService
@@ -131,7 +131,7 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
         }
 
         fun onVerificationSuccess() {
-            navigationManager.navigate(
+            mainNavigationManager.navigate(
                 lifecycleScope,
                 AuthFragmentDirections.actionAuthFragmentToHomeFragment()
             )
