@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class ChatPrivateItemMapper @Inject constructor() {
 
-    private val formatter by lazy { SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.US) }
+    private val formatter by lazy { SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()) }
 
     fun map(chatEntities: List<ChatEntity>, selfId: String): List<ChatPrivateItem> {
         return chatEntities.map { chat ->

@@ -51,7 +51,7 @@
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_mainFragment_to_accountFragment"
+            android:id="@+id/action_homeFragment_to_accountFragment"
             app:destination="@id/accountFragment" />
         <action
             android:id="@+id/action_homeFragment_to_settingsFragment"
@@ -65,6 +65,9 @@
         <action
             android:id="@+id/action_homeFragment_to_chatPrivateCreateFragment"
             app:destination="@id/chatPrivateCreateFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_eventCreateFragment"
+            app:destination="@id/eventCreateFragment" />
     </fragment>
 
     <fragment
@@ -141,4 +144,10 @@
             app:destination="@id/messagesPrivateFragment"
             app:popUpTo="@id/homeFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/eventCreateFragment"
+        android:name="com.example.forst_android.events.create.ui.EventCreateFragment"
+        android:label="EventCreateFragment"
+        tools:layout="@layout/fragment_event_create" />
 </navigation>

@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class MessagePrivateItemMapper @Inject constructor() {
 
-    private val formatter by lazy { SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.US) }
+    private val formatter by lazy { SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()) }
 
     fun map(messageEntities: List<MessageEntity>, selfId: String): List<MessagePrivateItem> {
         return messageEntities.map { message ->

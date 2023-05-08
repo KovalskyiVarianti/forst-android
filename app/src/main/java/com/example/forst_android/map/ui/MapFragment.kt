@@ -137,15 +137,21 @@ class MapFragment : Fragment(R.layout.fragment_map) {
         binding.map.apply {
             setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE)
             setMultiTouchControls(true)
+            setExpectedCenter(myLocationOverlay?.myLocation)
             controller.setZoom(15.0)
             myLocationOverlay = MyLocationNewOverlay(
                 GpsMyLocationProvider(context),
                 this
             ).apply {
+                setDirectionIcon(
+                    AppCompatResources.getDrawable(context, R.drawable.icon_account)
+                        ?.toBitmap(100, 100)
+                )
                 setPersonIcon(
                     AppCompatResources.getDrawable(context, R.drawable.icon_account)
                         ?.toBitmap(100, 100)
                 )
+
                 enableMyLocation()
                 binding.myLocationButton.setOnClickListener {
                     controller.setCenter(myLocation)

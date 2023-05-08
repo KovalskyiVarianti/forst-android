@@ -11,7 +11,8 @@ enum class RealtimeRoot(val value: String) {
     MESSAGES("messages"),
     TOP_MESSAGE_ID("topMessageId"),
     LOCATIONS("locations"),
-    NAME("name")
+    NAME("name"),
+    EVENTS("events"),
 }
 
 fun FirebaseDatabase.getReference(root: RealtimeRoot) = getReference(root.value)

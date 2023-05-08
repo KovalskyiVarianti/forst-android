@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class MapFollowedItemMapper @Inject constructor() {
 
-    private val formatter by lazy { SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.US) }
+    private val formatter by lazy { SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()) }
 
     fun map(followedUserEntities: List<FollowedUserEntity>): List<MapFollowedItem> {
         return listOf(MapFollowedItem.AddFollowedUserButton) + followedUserEntities.map { user ->

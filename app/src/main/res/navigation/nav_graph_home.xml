@@ -9,8 +9,7 @@
         android:id="@+id/chatToggleFragment"
         android:name="com.example.forst_android.chats.toggle.ui.ChatToggleFragment"
         android:label="ChatsFragment"
-        tools:layout="@layout/fragment_chat_toggle">
-    </fragment>
+        tools:layout="@layout/fragment_chat_toggle" />
 
     <fragment
         android:id="@+id/mapFragment"
@@ -18,5 +17,10 @@
         android:label="MapFragment"
         tools:layout="@layout/fragment_map" />
 
+    <fragment
+        android:id="@+id/eventsFragment"
+        android:name="com.example.forst_android.events.list.ui.EventsFragment"
+        android:label="EventsFragment"
+        tools:layout="@layout/fragment_events" />
 
 </navigation>
