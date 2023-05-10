@@ -1,7 +1,7 @@
 package com.example.forst_android.chats.priv.list.data
 
 import com.example.forst_android.chats.priv.create.data.ChatPrivateRealtimeDatabase
-import com.example.forst_android.chats.priv.list.domain.ChatEntity
+import com.example.forst_android.chats.priv.list.domain.ChatPrivateEntity
 import com.example.forst_android.chats.priv.list.domain.ChatPrivateListenerInteractor
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -11,7 +11,7 @@ class DefaultChatPrivateListenerInteractor @Inject constructor(
     private val chatPrivateRealtimeDatabase: ChatPrivateRealtimeDatabase,
     private val chatEntityMapper: ChatEntityMapper,
 ) : ChatPrivateListenerInteractor {
-    override fun addChatListener(clusterId: String, userId: String): Flow<List<ChatEntity>> {
+    override fun addChatListener(clusterId: String, userId: String): Flow<List<ChatPrivateEntity>> {
         return chatPrivateRealtimeDatabase.addChatPrivateListener(
             clusterId, userId,
         ).map { chats ->

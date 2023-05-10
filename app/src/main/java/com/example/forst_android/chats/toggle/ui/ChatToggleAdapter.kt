@@ -2,6 +2,7 @@ package com.example.forst_android.chats.toggle.ui
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.forst_android.chats.group.list.ui.ChatGroupFragment
 import com.example.forst_android.chats.priv.list.ui.ChatPrivateFragment
 
 class ChatToggleAdapter(parentFragment: Fragment) : FragmentStateAdapter(parentFragment) {
@@ -16,7 +17,7 @@ class ChatToggleAdapter(parentFragment: Fragment) : FragmentStateAdapter(parentF
 
     override fun createFragment(position: Int) = when (position) {
         PRIVATE_CHAT_POSITION -> ChatPrivateFragment()
-        GROUP_CHAT_POSITION -> ChatPrivateFragment()
+        GROUP_CHAT_POSITION -> ChatGroupFragment()
         else -> throw IllegalArgumentException("Only Private and Group chat fragments allowed!")
     }
 

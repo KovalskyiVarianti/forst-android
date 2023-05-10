@@ -1,6 +1,6 @@
 package com.example.forst_android.chats.priv.list.domain
 
-data class ChatEntity(
+data class ChatPrivateEntity(
     val id: String,
     val interlocutorId: String,
     val interlocutorName: String,

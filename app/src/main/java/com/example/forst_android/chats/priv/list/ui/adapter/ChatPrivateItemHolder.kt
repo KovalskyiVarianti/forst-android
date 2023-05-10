@@ -3,9 +3,9 @@ package com.example.forst_android.chats.priv.list.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.forst_android.databinding.ItemChatBinding
+import com.example.forst_android.databinding.ItemChatPrivateBinding
 
-class ChatPrivateItemHolder(private val binding: ItemChatBinding) : RecyclerView.ViewHolder(binding.root) {
+class ChatPrivateItemHolder(private val binding: ItemChatPrivateBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: ChatPrivateItem, chatClickListener: ChatClickListener) {
         binding.apply {
             interlocutorName.text = item.personName
@@ -17,7 +17,7 @@ class ChatPrivateItemHolder(private val binding: ItemChatBinding) : RecyclerView
 
     companion object {
         fun from(parent: ViewGroup) = ChatPrivateItemHolder(
-            ItemChatBinding.inflate(
+            ItemChatPrivateBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )

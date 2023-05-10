@@ -48,6 +48,12 @@ class ChatToggleFragment : Fragment(R.layout.fragment_chat_toggle) {
                             setImageDrawable(
                                 AppCompatResources.getDrawable(context, R.drawable.icon_add_group)
                             )
+                            setOnClickListener {
+                                mainNavigationManager.navigate(
+                                    lifecycleScope,
+                                    HomeFragmentDirections.actionHomeFragmentToChatGroupCreateFragment()
+                                )
+                            }
                         }
                         else -> throw IllegalArgumentException("Only Private and Group chat fragments allowed!")
                     }

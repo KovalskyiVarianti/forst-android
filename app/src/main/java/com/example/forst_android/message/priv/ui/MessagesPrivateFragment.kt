@@ -49,7 +49,9 @@ class MessagesPrivateFragment : Fragment(R.layout.fragment_messages_private) {
                 navArgs.interlocutorId
             ).flowWithLifecycle(lifecycle, Lifecycle.State.CREATED).collect { messages ->
                 (binding.messageList.adapter as MessagePrivateAdapter).submitList(messages)
-//                binding.messageList.smoothScrollToPosition(messages.size - 1)
+                if (messages.size > 1) {
+                    binding.messageList.smoothScrollToPosition(messages.size - 1)
+                }
             }
         }
 

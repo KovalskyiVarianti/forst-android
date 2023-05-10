@@ -1,7 +1,7 @@
 package com.example.forst_android.chats.priv.list.data
 
 import com.example.forst_android.chats.priv.create.data.ChatPrivateRealtimeEntity
-import com.example.forst_android.chats.priv.list.domain.ChatEntity
+import com.example.forst_android.chats.priv.list.domain.ChatPrivateEntity
 import com.example.forst_android.common.data.database.UserRealtimeDatabase
 import com.example.forst_android.message.priv.data.MessageRealtimeDatabase
 import javax.inject.Inject
@@ -14,13 +14,13 @@ class ChatEntityMapper @Inject constructor(
         clusterId: String,
         userId: String,
         chatPrivateRealtimeEntities: List<ChatPrivateRealtimeEntity>
-    ): List<ChatEntity> {
+    ): List<ChatPrivateEntity> {
         return chatPrivateRealtimeEntities.map { chat ->
             val interlocutor = userRealtimeDatabase.getUserById(chat.interlocutorId.orEmpty())
             val topMessage = chat.topMessageId?.let {
                 messageRealtimeDatabase.getMessageById(clusterId, userId, chat.id.orEmpty(), it)
             }
-            ChatEntity(
+            ChatPrivateEntity(
                 chat.id.orEmpty(),
                 interlocutor?.id.orEmpty(),
                 interlocutor?.name ?: interlocutor?.phoneNumber.orEmpty(),

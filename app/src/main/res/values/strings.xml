@@ -25,4 +25,6 @@
     <string name="sharing_location">Sharing location</string>
     <string name="location_is_hidden">Location is hidden</string>
     <string name="user_name_empty">Put your username here</string>
+    <string name="create_group">Create group</string>
+    <string name="group_name">Group name</string>
 </resources>

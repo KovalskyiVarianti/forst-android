@@ -7,7 +7,7 @@ interface MessageListenerInteractor {
         clusterId: String,
         userId: String,
         chatId: String
-    ): Flow<List<MessageEntity>>
+    ): Flow<List<MessagePrivateEntity>>
 
     fun removeMessageListener(
         clusterId: String,

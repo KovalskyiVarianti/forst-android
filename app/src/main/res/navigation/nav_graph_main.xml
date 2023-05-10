@@ -68,6 +68,12 @@
         <action
             android:id="@+id/action_homeFragment_to_eventCreateFragment"
             app:destination="@id/eventCreateFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_chatGroupCreateFragment"
+            app:destination="@id/chatGroupCreateFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_messagesGroupFragment"
+            app:destination="@id/messagesGroupFragment" />
     </fragment>
 
     <fragment
@@ -146,8 +152,29 @@
     </fragment>
 
     <fragment
+        android:id="@+id/chatGroupCreateFragment"
+        android:name="com.example.forst_android.chats.group.create.ui.ChatGroupCreateFragment"
+        android:label="ChatGroupCreateFragment"
+        tools:layout="@layout/fragment_chat_group_create">
+        <action
+            android:id="@+id/action_chatGroupCreateFragment_to_messagesGroupFragment"
+            app:destination="@id/messagesGroupFragment"
+            app:popUpTo="@id/homeFragment"/>
+    </fragment>
+
+    <fragment
         android:id="@+id/eventCreateFragment"
         android:name="com.example.forst_android.events.create.ui.EventCreateFragment"
         android:label="EventCreateFragment"
         tools:layout="@layout/fragment_event_create" />
+
+    <fragment
+        android:id="@+id/messagesGroupFragment"
+        android:name="com.example.forst_android.message.group.ui.MessagesGroupFragment"
+        android:label="MessagesGroupFragment"
+        tools:layout="@layout/fragment_messages_group">
+        <argument
+            android:name="groupId"
+            app:argType="string" />
+    </fragment>
 </navigation>

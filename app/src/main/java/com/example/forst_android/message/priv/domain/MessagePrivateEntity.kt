@@ -1,6 +1,6 @@
 package com.example.forst_android.message.priv.domain
 
-data class MessageEntity(
+data class MessagePrivateEntity(
     val id: String,
     val data: String,
     val senderId: String,

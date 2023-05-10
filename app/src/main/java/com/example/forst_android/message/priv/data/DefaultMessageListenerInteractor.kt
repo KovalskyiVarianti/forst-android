@@ -1,6 +1,6 @@
 package com.example.forst_android.message.priv.data
 
-import com.example.forst_android.message.priv.domain.MessageEntity
+import com.example.forst_android.message.priv.domain.MessagePrivateEntity
 import com.example.forst_android.message.priv.domain.MessageListenerInteractor
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -13,11 +13,11 @@ class DefaultMessageListenerInteractor @Inject constructor(
         clusterId: String,
         userId: String,
         chatId: String
-    ): Flow<List<MessageEntity>> {
+    ): Flow<List<MessagePrivateEntity>> {
         return messageRealtimeDatabase.addMessageListener(clusterId, userId, chatId)
             .map { messages ->
                 messages.map { message ->
-                    MessageEntity(
+                    MessagePrivateEntity(
                         message.id.orEmpty(),
                         message.data.orEmpty(),
                         message.senderId.orEmpty(),
