@@ -51,16 +51,28 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <TextView
+        android:id="@+id/clusterListTitle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/choose_another_cluster"
+        android:textColor="@color/on_primary"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/clusterList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background"
+        android:padding="10dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constrainedHeight="true"
-        app:layout_constraintHeight_max="200dp"
         app:layout_constraintBottom_toTopOf="@id/addButton"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintHeight_max="200dp"
+        app:layout_constraintTop_toBottomOf="@id/clusterListTitle"
         tools:itemCount="12"
         tools:listitem="@layout/item_cluster_popup" />
 

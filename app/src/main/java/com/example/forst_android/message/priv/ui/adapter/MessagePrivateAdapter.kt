@@ -34,19 +34,21 @@ class MessagePrivateAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessagePrivateItemHolder {
         return when(ViewType.values().first { it.type == viewType }) {
             ViewType.TEXT -> MessagePrivateTextHolder.from(parent)
-            ViewType.IMAGE -> TODO()
+            ViewType.IMAGE -> MessagePrivateImageHolder.from(parent)
         }
     }
 
     override fun onBindViewHolder(holder: MessagePrivateItemHolder, position: Int) {
         when (holder) {
             is MessagePrivateTextHolder -> holder.bind(getItem(position) as MessagePrivateItem.MessagePrivateText)
+            is MessagePrivateImageHolder -> holder.bind(getItem(position) as MessagePrivateItem.MessagePrivateImage)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
             is MessagePrivateItem.MessagePrivateText -> ViewType.TEXT.type
+            is MessagePrivateItem.MessagePrivateImage -> ViewType.IMAGE.type
         }
     }
 }

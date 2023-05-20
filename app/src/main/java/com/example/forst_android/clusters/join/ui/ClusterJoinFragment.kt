@@ -31,7 +31,7 @@ class ClusterJoinFragment : Fragment(R.layout.fragment_cluster_join) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.clusterList.adapter = ClusterJoinAdapter { id ->
-            clusterJoinViewModel.joinCluster(id)
+            binding.clusterIdInput.setText(id)
         }
         binding.clusterJoinButton.setOnClickListener {
             clusterJoinViewModel.joinCluster(binding.clusterIdInput.text?.toString())

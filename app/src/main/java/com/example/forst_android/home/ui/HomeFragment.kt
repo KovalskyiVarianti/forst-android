@@ -10,6 +10,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.forst_android.R
+import com.example.forst_android.common.domain.service.UserService
+import com.example.forst_android.common.ui.loadAvatar
 import com.example.forst_android.common.ui.viewBinding
 import com.example.forst_android.databinding.FragmentHomeBinding
 import com.example.forst_android.main.navigation.MainNavigationManager
@@ -23,6 +25,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     @Inject
     lateinit var mainNavigationManager: MainNavigationManager
 
+    @Inject
+    lateinit var userService: UserService
+
     private val binding: FragmentHomeBinding by viewBinding()
 
     private val homeViewModel: HomeViewModel by viewModels()
@@ -32,11 +37,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         initHomeNavigation()
 
-        binding.accountIcon.setOnClickListener {
-            mainNavigationManager.navigate(
-                lifecycleScope,
-                HomeFragmentDirections.actionHomeFragmentToAccountFragment()
-            )
+        binding.accountIcon.apply {
+            userService.photoUrl?.let { loadAvatar(it) }
+            setOnClickListener {
+                mainNavigationManager.navigate(
+                    lifecycleScope,
+                    HomeFragmentDirections.actionHomeFragmentToAccountFragment()
+                )
+            }
         }
 
         lifecycleScope.launch {

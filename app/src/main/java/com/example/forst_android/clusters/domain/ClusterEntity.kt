@@ -5,4 +5,5 @@ data class ClusterEntity(
     val membersIds: List<String>,
     val name: String,
     val ownerId: String,
+    val isPrivate: Boolean,
 )

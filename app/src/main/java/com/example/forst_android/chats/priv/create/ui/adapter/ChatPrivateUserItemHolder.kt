@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.forst_android.R
 import com.example.forst_android.common.ui.ItemClickListener
+import com.example.forst_android.common.ui.loadAvatar
 import com.example.forst_android.databinding.ItemChatPrivateUserBinding
 
 class ChatPrivateUserItemHolder(private val binding: ItemChatPrivateUserBinding) :
@@ -15,6 +16,7 @@ class ChatPrivateUserItemHolder(private val binding: ItemChatPrivateUserBinding)
             itemClickListener(item.id)
         }
         userName.text = item.name.takeIf { it.isNotBlank() } ?: item.phone
+        userImage.loadAvatar(item.photo)
         createChatText.text = when (item.isSelf) {
             true -> root.context.getString(R.string.open_chat_you)
             false -> root.context.getString(R.string.open_chat)

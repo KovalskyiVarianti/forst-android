@@ -51,7 +51,14 @@ class UserRealtimeDatabase @Inject constructor(
     private var usersByIdsListener: ValueEventListener? = null
     private var followedUsersListener: ValueEventListener? = null
 
+    private var lastUserId: String? = null
+
+    private var lastFollowedUserId: String? = null
+    private var lastClusterId: String? = null
+
     fun addJoinedClustersIdsListener(userId: String): SharedFlow<List<String>> {
+        removeJoinedClustersIdsListener()
+        lastUserId = userId
         userDatabase
             .child(userId)
             .child(RealtimeRoot.CLUSTERS)
@@ -74,12 +81,14 @@ class UserRealtimeDatabase @Inject constructor(
         return joinedClustersIds.asSharedFlow()
     }
 
-    fun removeJoinedClustersIdsListener(userId: String) {
+    fun removeJoinedClustersIdsListener() {
         joinedClustersIdsListener?.let {
-            userDatabase
-                .child(userId)
-                .child(RealtimeRoot.CLUSTERS)
-                .removeEventListener(it)
+            lastUserId?.let { userId ->
+                userDatabase
+                    .child(userId)
+                    .child(RealtimeRoot.CLUSTERS)
+                    .removeEventListener(it)
+            }
         }
         joinedClustersIdsListener = null
     }
@@ -155,12 +164,14 @@ class UserRealtimeDatabase @Inject constructor(
     }
 
     fun addFollowedUserIdsListener(clusterId: String, userId: String): SharedFlow<List<String>> {
+        removeFollowedUserIdsListener()
+        lastClusterId = clusterId
+        lastFollowedUserId = userId
         userDatabase
             .child(userId)
             .child(RealtimeRoot.LOCATIONS)
             .child(clusterId)
             .apply {
-                removeFollowedUserIdsListener(clusterId, userId)
                 followedUsersListener = addValueEventListener(
                     object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
@@ -178,13 +189,17 @@ class UserRealtimeDatabase @Inject constructor(
         return followedUsersIds.asSharedFlow()
     }
 
-    fun removeFollowedUserIdsListener(clusterId: String, userId: String) {
+    fun removeFollowedUserIdsListener() {
         followedUsersListener?.let {
-            userDatabase
-                .child(userId)
-                .child(RealtimeRoot.LOCATIONS)
-                .child(clusterId)
-                .removeEventListener(it)
+            lastFollowedUserId?.let { userId ->
+                lastClusterId?.let { clusterId ->
+                    userDatabase
+                        .child(userId)
+                        .child(RealtimeRoot.LOCATIONS)
+                        .child(clusterId)
+                        .removeEventListener(it)
+                }
+            }
         }
         followedUsersListener = null
     }

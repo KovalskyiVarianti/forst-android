@@ -27,14 +27,15 @@ class DefaultClusterJoinedListenerInteractor @Inject constructor(
                         cluster.id.orEmpty(),
                         membersRealtimeDatabase.getMembersIds(cluster.id.orEmpty()),
                         cluster.name.orEmpty(),
-                        cluster.ownerId.orEmpty()
+                        cluster.ownerId.orEmpty(),
+                        cluster.private ?: false
                     )
                 }
             }
     }
 
     override fun removeJoinedClustersListener() {
-        userRealtimeDatabase.removeJoinedClustersIdsListener(userService.userUID.orEmpty())
+        userRealtimeDatabase.removeJoinedClustersIdsListener()
         clusterRealtimeDatabase.removeJoinedClustersListener()
     }
 }

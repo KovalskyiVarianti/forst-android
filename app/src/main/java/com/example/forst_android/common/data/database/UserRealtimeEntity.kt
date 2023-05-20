@@ -7,5 +7,4 @@ data class UserRealtimeEntity(
     val id: String? = null,
     val name: String? = null,
     val phoneNumber: String? = null,
-    val photoUri: String? = null,
 )

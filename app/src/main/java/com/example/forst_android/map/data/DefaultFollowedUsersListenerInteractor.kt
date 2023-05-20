@@ -1,6 +1,7 @@
 package com.example.forst_android.map.data
 
 import com.example.forst_android.common.data.database.UserRealtimeDatabase
+import com.example.forst_android.common.domain.service.UserService
 import com.example.forst_android.map.domain.FollowedUserEntity
 import com.example.forst_android.map.domain.FollowedUserLocation
 import com.example.forst_android.map.domain.FollowedUsersListenerInteractor
@@ -38,7 +39,7 @@ class DefaultFollowedUsersListenerInteractor @Inject constructor(
                 FollowedUserEntity(
                     userLocation.id.orEmpty(),
                     followedUser?.name ?: followedUser?.phoneNumber.orEmpty(),
-                    followedUser?.photoUri.orEmpty(),
+                    UserService.getPhotoUrl(userLocation.id.orEmpty()),
                     followedUserLocation,
                     userLocation.lastUpdate!!
                 )
@@ -46,8 +47,8 @@ class DefaultFollowedUsersListenerInteractor @Inject constructor(
         }
     }
 
-    override fun removeFollowedUsersListener(clusterId: String, userId: String) {
-        userRealtimeDatabase.removeFollowedUserIdsListener(clusterId, userId)
-        userLocationRealtimeDatabase.removeUsersLocationsListener(clusterId)
+    override fun removeFollowedUsersListener() {
+        userRealtimeDatabase.removeFollowedUserIdsListener()
+        userLocationRealtimeDatabase.removeUsersLocationsListener()
     }
 }

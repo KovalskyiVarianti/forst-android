@@ -1,6 +1,6 @@
 package com.example.forst_android.events.list.di
 
-import com.example.forst_android.events.list.data.DefaultEventsListenerInteractor
+import com.example.forst_android.events.list.data.RealtimeEventsListenerInteractor
 import com.example.forst_android.events.list.domain.EventsListenerInteractor
 import dagger.Binds
 import dagger.Module
@@ -13,6 +13,6 @@ interface InteractorModule {
 
     @Binds
     fun eventsListenerInteractor(
-        defaultEventsListenerInteractor: DefaultEventsListenerInteractor
+        defaultEventsListenerInteractor: RealtimeEventsListenerInteractor
     ): EventsListenerInteractor
 }

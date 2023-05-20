@@ -1,15 +1,21 @@
 package com.example.forst_android.common.domain.service
 
-import android.net.Uri
+import com.example.forst_android.common.data.Routes
 
 interface UserService {
+
+    companion object {
+        fun getPhotoUrl(userId : String) = "${Routes.BASE_URL}/${Routes.AVATARS}/${userId}"
+    }
+
     val userUID: String?
     val phoneNumber: String?
     val userEmail: String?
     val name: String?
-    val photoUrl: Uri?
+    val photoUrl: String?
     val isLoggedIn: Boolean
     suspend fun updateName(name:String)
-    suspend fun updatePhoto(uri: Uri?)
     suspend fun signOut()
+
+    suspend fun getIdToken() : String?
 }

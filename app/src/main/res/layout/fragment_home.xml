@@ -19,7 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="10dp"
-            app:cardBackgroundColor="@color/on_primary"
+            app:cardBackgroundColor="@color/background"
             app:cardCornerRadius="50dp"
             app:contentPaddingLeft="13dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:textColor="@color/primary"
+                android:textColor="@color/on_background"
                 android:textSize="20sp"
                 app:drawableEndCompat="@drawable/icon_arrow_drop_down"
                 tools:text="Cluster name" />
@@ -44,10 +44,8 @@
             android:layout_height="match_parent"
             android:contentDescription="@string/account"
             android:padding="10dp"
-            android:src="@drawable/icon_account"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/on_primary" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

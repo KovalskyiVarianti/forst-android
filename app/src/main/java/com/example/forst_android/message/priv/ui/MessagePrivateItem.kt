@@ -11,4 +11,11 @@ sealed class MessagePrivateItem(
         override val isSelf: Boolean,
         val text: String,
     ) : MessagePrivateItem(id, sendTime, isSelf)
+
+    data class MessagePrivateImage(
+        override val id: String,
+        override val sendTime: String,
+        override val isSelf: Boolean,
+        val url: String,
+    ) : MessagePrivateItem(id, sendTime, isSelf)
 }

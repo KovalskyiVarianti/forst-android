@@ -5,13 +5,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.forst_android.clusters.data.ClusterPreferences
 import com.example.forst_android.common.coroutines.CoroutineDispatchers
 import com.example.forst_android.common.domain.service.UserService
-import com.example.forst_android.message.priv.domain.GetUserByIdUseCase
-import com.example.forst_android.message.priv.domain.MessageListenerInteractor
-import com.example.forst_android.message.priv.domain.MessageSendUseCase
+import com.example.forst_android.message.priv.domain.*
 import com.example.forst_android.message.priv.ui.adapter.MessagePrivateItemMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.io.InputStream
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,6 +22,7 @@ class MessagesPrivateViewModel @Inject constructor(
     private val coroutineDispatchers: CoroutineDispatchers,
     private val messagePrivateItemMapper: MessagePrivateItemMapper,
     private val getUserByIdUseCase: GetUserByIdUseCase,
+    private val photoSendUseCase: PhotoSendUseCase,
 ) : ViewModel() {
 
     private val userInfo = MutableStateFlow<UserInfo?>(null)
@@ -35,7 +35,8 @@ class MessagesPrivateViewModel @Inject constructor(
                     UserInfo(
                         user.id,
                         user.name.takeIf { it.isNotBlank() } ?: user.phoneNumber,
-                        user.photoUri)
+                        user.photoUri
+                    )
                 )
             }
         }
@@ -59,7 +60,28 @@ class MessagesPrivateViewModel @Inject constructor(
             val clusterId = clusterPreferences.getSelectedClusterId().firstOrNull()
                 ?: throw IllegalArgumentException()
             val userId = userService.userUID ?: throw IllegalArgumentException()
-            messageSendUseCase.sendMessage(clusterId, chatId, userId, interlocutorId, message)
+            messageSendUseCase.sendMessage(
+                clusterId,
+                chatId,
+                userId,
+                interlocutorId,
+                message
+            )
+        }
+    }
+
+    fun sendPhoto(chatId: String, interlocutorId: String, stream: InputStream) {
+        viewModelScope.launch(coroutineDispatchers.io) {
+            val clusterId = clusterPreferences.getSelectedClusterId().firstOrNull()
+                ?: throw IllegalArgumentException()
+            val userId = userService.userUID ?: throw IllegalArgumentException()
+            photoSendUseCase.sendPhoto(
+                clusterId,
+                chatId,
+                userId,
+                interlocutorId,
+                stream,
+            )
         }
     }
 }

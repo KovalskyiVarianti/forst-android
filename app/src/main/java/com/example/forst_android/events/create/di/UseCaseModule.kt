@@ -1,6 +1,6 @@
 package com.example.forst_android.events.create.di
 
-import com.example.forst_android.events.create.data.DefaultCreateEventUseCase
+import com.example.forst_android.events.create.data.RealtimeCreateEventUseCase
 import com.example.forst_android.events.create.domain.CreateEventUseCase
 import dagger.Binds
 import dagger.Module
@@ -13,6 +13,6 @@ interface UseCaseModule {
 
     @Binds
     fun createEventUseCase(
-        defaultCreateEventUseCase: DefaultCreateEventUseCase
+        defaultCreateEventUseCase: RealtimeCreateEventUseCase
     ) : CreateEventUseCase
 }

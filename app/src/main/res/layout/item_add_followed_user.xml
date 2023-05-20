@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:padding="5sp"
     android:layout_height="wrap_content">
@@ -13,13 +12,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/icon_add_circle" />
+        android:src="@drawable/icon_add_circle"
+        app:tint="@color/on_background"/>
 
     <TextView
         android:id="@+id/userName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Follow user"
+        android:text="@string/follow_user"
         android:maxLines="1"
         android:gravity="center"
         android:ellipsize="end"

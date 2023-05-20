@@ -26,4 +26,9 @@ class ChatPrivateViewModel @Inject constructor(
     }.map { chats ->
         chatPrivateItemMapper.map(chats, userService.userUID ?: throw IllegalArgumentException())
     }
+
+    override fun onCleared() {
+        chatPrivateListenerInteractor.removeChatListener()
+        super.onCleared()
+    }
 }

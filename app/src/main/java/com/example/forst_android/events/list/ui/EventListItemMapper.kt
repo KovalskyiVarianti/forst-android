@@ -13,15 +13,24 @@ class EventListItemMapper @Inject constructor() {
     }
 
     private val dateFormatter: SimpleDateFormat by lazy {
-        SimpleDateFormat("EEEE dd/MM/yyyy", Locale.getDefault())
+        SimpleDateFormat("EEEE | dd.MM.yyyy", Locale.getDefault())
     }
 
-    fun map(eventEntities: List<EventEntity>): List<EventListItem> {
+    fun map(eventEntities: List<EventEntity>): EventsPagesItem {
+        val currentTime = System.currentTimeMillis()
+        val (activeEvents, endedEvents) = eventEntities.partition { it.endTime > currentTime }
+        return EventsPagesItem(
+            listOf(EventListItem.AddNewEventItem) + getSortedEvents(activeEvents, reverse = false),
+            getSortedEvents(endedEvents, reverse = true),
+        )
+    }
+
+    private fun getSortedEvents(eventEntities: List<EventEntity>, reverse: Boolean): List<EventListItem> {
         val sortedEventListItems = mutableListOf<EventListItem>()
         eventEntities.groupBy {
             it.startTime
-        }.toSortedMap().forEach { (date, events) ->
-            sortedEventListItems.add(EventListItem.EventDateItem(dateFormatter.format(date)))
+        }.toSortedMap(if (reverse) Comparator.reverseOrder() else Comparator.naturalOrder()).forEach { (date, events) ->
+            sortedEventListItems.add(EventListItem.EventDateItem(dateFormatter.format(date).uppercase()))
             sortedEventListItems.addAll(
                 events.map { eventEntity ->
                     EventListItem.EventItem(
@@ -35,7 +44,7 @@ class EventListItemMapper @Inject constructor() {
                 }
             )
         }
-        return listOf(EventListItem.AddNewEventItem) + sortedEventListItems.distinct()
+        return sortedEventListItems.distinct()
     }
 
     private fun getEventTime(startTime: Long, endTime: Long): String {

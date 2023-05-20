@@ -3,6 +3,7 @@ package com.example.forst_android.map.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.forst_android.common.ui.ItemClickListener
+import com.example.forst_android.common.ui.loadAvatar
 import com.example.forst_android.databinding.ItemFollowedUserBinding
 
 class MapFollowedUserItemHolder(private val binding: ItemFollowedUserBinding) :
@@ -16,6 +17,7 @@ class MapFollowedUserItemHolder(private val binding: ItemFollowedUserBinding) :
             itemClickListener(item.id)
         }
         userName.text = item.name
+        userImage.loadAvatar(item.imageUrl)
     }
 
     companion object {

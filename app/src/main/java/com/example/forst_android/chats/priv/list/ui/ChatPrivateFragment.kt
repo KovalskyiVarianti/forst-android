@@ -2,8 +2,10 @@ package com.example.forst_android.chats.priv.list.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.example.forst_android.R
@@ -42,8 +44,10 @@ class ChatPrivateFragment : Fragment(R.layout.fragment_chat_private) {
         lifecycleScope.launch {
             chatPrivateViewModel.chats.flowWithLifecycle(
                 lifecycle,
+                Lifecycle.State.STARTED
             ).collect { chats ->
                 (binding.chatList.adapter as ChatPrivateAdapter).submitList(chats)
+                binding.emptyListMessage.isVisible = chats.isEmpty()
             }
         }
     }

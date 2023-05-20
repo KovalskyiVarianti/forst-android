@@ -5,5 +5,5 @@ data class MessagePrivateEntity(
     val data: String,
     val senderId: String,
     val sendTime: Long,
-    val type: String
+    val type: MessageType
 )

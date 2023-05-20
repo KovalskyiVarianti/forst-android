@@ -3,20 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/primary">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/clusterNameTitle"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/background"
-        android:textSize="20sp"
-        android:padding="10dp"
+        android:layout_marginTop="5dp"
+        app:cardBackgroundColor="@color/background"
+        app:cardCornerRadius="50dp"
+        app:contentPaddingLeft="13dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Cluster name" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:padding="5dp"
+            android:id="@+id/clusterNameTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background"
+            android:textColor="@color/on_background"
+            android:textSize="20sp"
+            tools:text="Cluster name" />
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

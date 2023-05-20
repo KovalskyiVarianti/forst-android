@@ -26,17 +26,30 @@
         tools:listitem="@layout/item_followed_user" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addLocationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="15dp"
+        app:backgroundTint="@color/surface"
+        android:src="@drawable/icon_location_add"
+        app:borderWidth="0dp"
+        app:layout_constraintBottom_toTopOf="@id/myLocationButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/myLocationButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="25dp"
-        android:backgroundTint="@color/on_primary"
+        android:backgroundTint="@color/primary"
         android:src="@drawable/icon_location_my"
         app:borderWidth="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/primary" />
+        app:tint="@color/on_surface" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/locationShareStateButton"
@@ -44,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginBottom="15dp"
-        app:cardBackgroundColor="@color/on_primary"
+        app:cardBackgroundColor="@color/primary"
         app:cardCornerRadius="40dp"
         app:contentPadding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -56,7 +69,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:maxLines="1"
-            android:textColor="@color/primary"
-            android:textSize="12sp" />
+            android:textColor="@color/on_surface"
+            android:textSize="12sp"
+            tools:text="Location sharing state" />
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

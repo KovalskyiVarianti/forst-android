@@ -5,6 +5,7 @@ import com.example.forst_android.clusters.data.ClusterPreferences
 import com.example.forst_android.clusters.data.realtime.MembersRealtimeDatabase
 import com.example.forst_android.common.data.database.UserRealtimeDatabase
 import com.example.forst_android.common.domain.entity.UserEntity
+import com.example.forst_android.common.domain.service.UserService
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
@@ -22,21 +23,19 @@ class DefaultClusterMembersListenerInteractor @Inject constructor(
             userRealtimeDatabase.addUsersByIdsListener(membersIds)
         }.map { users ->
             users.map { user ->
+                val userId = user.id.orEmpty()
                 UserEntity(
-                    id = user.id.orEmpty(),
+                    id = userId,
                     name = user.name.orEmpty(),
                     phoneNumber = user.phoneNumber.orEmpty(),
-                    photoUri = user.photoUri.orEmpty()
+                    photoUri = UserService.getPhotoUrl(userId)
                 )
             }
         }
     }
 
     override suspend fun removeClusterMembersListener() {
-        membersRealtimeDatabase.removeMembersIdsListener(
-            clusterPreferences.getSelectedClusterId().firstOrNull()
-                ?: throw IllegalArgumentException()
-        )
+        membersRealtimeDatabase.removeMembersIdsListener()
         userRealtimeDatabase.removeUsersByIdsListener()
     }
 }

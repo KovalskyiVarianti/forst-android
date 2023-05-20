@@ -34,8 +34,11 @@ class EventRealtimeDatabase @Inject constructor(
 
     private var eventListener: ValueEventListener? = null
 
+    private var lastClusterId: String? = null
+
     fun addEventListener(clusterId: String): SharedFlow<List<EventRealtimeEntity>> {
-        removeEventListener(clusterId)
+        removeEventListener()
+        lastClusterId = clusterId
         eventListener = eventDatabase.child(clusterId).addValueEventListener(
             DataEventListener { snapshot: DataSnapshot ->
                 snapshot.children.mapNotNull { child ->
@@ -48,8 +51,12 @@ class EventRealtimeDatabase @Inject constructor(
         return events.asSharedFlow()
     }
 
-    fun removeEventListener(clusterId: String) {
-        eventListener?.let { eventDatabase.child(clusterId).removeEventListener(it) }
+    fun removeEventListener() {
+        eventListener?.let {
+            lastClusterId?.let { clusterId ->
+                eventDatabase.child(clusterId).removeEventListener(it)
+            }
+        }
         eventListener = null
     }
 

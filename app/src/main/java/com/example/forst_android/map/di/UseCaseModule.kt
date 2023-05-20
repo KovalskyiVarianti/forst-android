@@ -1,6 +1,8 @@
 package com.example.forst_android.map.di
 
+import com.example.forst_android.map.data.DefaultCreatePointUseCase
 import com.example.forst_android.map.data.DefaultFollowUserLocationUseCase
+import com.example.forst_android.map.domain.CreatePointUseCase
 import com.example.forst_android.map.domain.FollowUserLocationUseCase
 import dagger.Binds
 import dagger.Module
@@ -14,4 +16,9 @@ interface UseCaseModule {
     fun followUserLocationUseCase(
         defaultFollowUserLocationUseCase: DefaultFollowUserLocationUseCase
     ): FollowUserLocationUseCase
+
+    @Binds
+    fun createPointUseCase(
+        defaultCreatePointUseCase: DefaultCreatePointUseCase
+    ) : CreatePointUseCase
 }

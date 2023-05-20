@@ -16,6 +16,12 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/authFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_authFragment_to_clusterEntryFragment"
+            app:destination="@id/clusterEntryFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/authFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
 
     <fragment
@@ -84,7 +90,7 @@
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.forst_android.settings.SettingsFragment"
+        android:name="com.example.forst_android.settings.ui.SettingsFragment"
         android:label="SettingsFragment"
         tools:layout="@layout/fragment_settings" />
 
@@ -110,8 +116,7 @@
             android:id="@+id/action_clusterCreateFragment_to_homeFragment"
             app:destination="@id/homeFragment"
             app:launchSingleTop="true"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true" />
+            app:popUpTo="@id/homeFragment" />
     </fragment>
 
     <fragment
@@ -123,8 +128,7 @@
             android:id="@+id/action_clusterJoinFragment_to_homeFragment"
             app:destination="@id/homeFragment"
             app:launchSingleTop="true"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true" />
+            app:popUpTo="@id/homeFragment" />
     </fragment>
 
     <fragment

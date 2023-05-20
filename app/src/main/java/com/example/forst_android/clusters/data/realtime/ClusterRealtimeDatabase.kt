@@ -1,7 +1,9 @@
 package com.example.forst_android.clusters.data.realtime
 
 import com.example.forst_android.common.coroutines.CoroutineDispatchers
+import com.example.forst_android.common.data.database.DataEventListener
 import com.example.forst_android.common.data.database.RealtimeRoot
+import com.example.forst_android.common.data.database.child
 import com.example.forst_android.common.data.database.getReference
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -14,8 +16,10 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 import timber.log.Timber
 import javax.inject.Inject
+import kotlin.coroutines.resume
 
 class ClusterRealtimeDatabase @Inject constructor(
     realtimeDatabase: FirebaseDatabase,
@@ -100,5 +104,15 @@ class ClusterRealtimeDatabase @Inject constructor(
         allClustersListener = null
     }
 
+    suspend fun getClusterById(clusterId: String) = suspendCancellableCoroutine {
+        clusterDatabase.child(clusterId).addListenerForSingleValueEvent(
+            DataEventListener { snapshot: DataSnapshot ->
+                it.resume(snapshot.getValue(ClusterRealtimeEntity::class.java))
+            }
+        )
+    }
 
+    fun updateClusterPrivacy(clusterId: String, value: Boolean) {
+        clusterDatabase.child(clusterId).child(RealtimeRoot.PRIVATE).setValue(value)
+    }
 }

@@ -15,9 +15,10 @@ class ChatGroupItemMapper @Inject constructor() {
             ChatGroupItem(
                 chatGroupEntity.id,
                 chatGroupEntity.name,
-                "",
                 chatGroupEntity.topMessageSenderName,
+                chatGroupEntity.topMessageSenderImage,
                 chatGroupEntity.topMessageText.orEmpty(),
+                chatGroupEntity.topMessageType,
                 chatGroupEntity.topMessageSentTime?.let { formatter.format(it) }.orEmpty()
             )
         }

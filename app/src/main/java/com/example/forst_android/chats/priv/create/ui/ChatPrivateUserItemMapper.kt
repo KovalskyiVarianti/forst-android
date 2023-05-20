@@ -14,6 +14,7 @@ class ChatPrivateUserItemMapper @Inject constructor(
                 user.id,
                 user.name,
                 user.phoneNumber,
+                user.photoUri,
                 user.id == userService.userUID
             )
         }

@@ -8,6 +8,8 @@ import com.example.forst_android.clusters.data.ClusterPreferences
 import com.example.forst_android.common.coroutines.CoroutineDispatchers
 import com.example.forst_android.common.domain.service.UserService
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -23,19 +25,34 @@ class ChatGroupCreateViewModel @Inject constructor(
     private val coroutineDispatchers: CoroutineDispatchers,
 ) : ViewModel() {
 
+    private val selectedUsers = mutableSetOf<String>()
+
     val clusterMembers = clusterMembersListenerInteractor.addClusterMembersListener().map { users ->
         chatGroupUserItemMapper.map(users)
     }
 
-    fun createGroup(name: String, membersIds: List<String>) {
+    private val chatClickResult = MutableStateFlow<ChatGroupClickResult?>(null)
+    fun getChatClickResult() = chatClickResult.asStateFlow()
+
+    fun createGroup(name: String) {
         viewModelScope.launch(coroutineDispatchers.io) {
             createChatGroupUseCase.createGroup(
                 clusterPreferences.getSelectedClusterId().first()
                     ?: throw IllegalArgumentException(),
                 userService.userUID ?: throw IllegalArgumentException(),
                 name,
-                membersIds
-            )
+                selectedUsers.toList()
+            ).let { groupId ->
+                chatClickResult.emit(ChatGroupClickResult(groupId))
+            }
+        }
+    }
+
+    fun updateSelection(userId: String, isSelected: Boolean) {
+        if (isSelected) {
+            selectedUsers.add(userId)
+        } else {
+            selectedUsers.remove(userId)
         }
     }
 }

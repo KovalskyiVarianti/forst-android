@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 
 class ChatGroupUserAdapter(
-
+    private val onSelectionChange: (userId: String, isSelected: Boolean) -> Unit
 ) : ListAdapter<ChatGroupUserItem, ChatGroupUserItemHolder>(ChatGroupUserItemDiffCallback) {
 
     private companion object ChatGroupUserItemDiffCallback :
@@ -31,6 +31,6 @@ class ChatGroupUserAdapter(
     }
 
     override fun onBindViewHolder(holder: ChatGroupUserItemHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), onSelectionChange)
     }
 }

@@ -5,6 +5,8 @@ import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.example.forst_android.R
 import com.example.forst_android.auth.domain.entity.CodeVerificationResult
@@ -131,10 +133,26 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
         }
 
         fun onVerificationSuccess() {
-            mainNavigationManager.navigate(
-                lifecycleScope,
-                AuthFragmentDirections.actionAuthFragmentToHomeFragment()
-            )
+            lifecycleScope.launch {
+                authViewModel.getHomeAvailability()
+                    .flowWithLifecycle(
+                        lifecycle,
+                        Lifecycle.State.CREATED
+                    ).collect { result ->
+                        result?.let {
+                            when(it) {
+                                true -> mainNavigationManager.navigate(
+                                    lifecycleScope,
+                                    AuthFragmentDirections.actionAuthFragmentToHomeFragment()
+                                )
+                                false -> mainNavigationManager.navigate(
+                                    lifecycleScope,
+                                    AuthFragmentDirections.actionAuthFragmentToClusterEntryFragment()
+                                )
+                            }
+                        }
+                    }
+            }
         }
 
         when (result) {

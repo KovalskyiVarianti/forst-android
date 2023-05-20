@@ -7,11 +7,13 @@ import com.example.forst_android.common.coroutines.CoroutineDispatchers
 import com.example.forst_android.common.domain.service.UserService
 import com.example.forst_android.message.group.domain.GetChatGroupByIdUseCase
 import com.example.forst_android.message.group.domain.MessageGroupListenerInteractor
+import com.example.forst_android.message.group.domain.PhotoGroupSendUseCase
 import com.example.forst_android.message.group.domain.SendGroupMessageUseCase
 import com.example.forst_android.message.group.ui.adapter.MessageGroupItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.io.InputStream
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,6 +25,7 @@ class MessagesGroupViewModel @Inject constructor(
     private val messageGroupListenerInteractor: MessageGroupListenerInteractor,
     private val messageGroupItemMapper: MessageGroupItemMapper,
     private val coroutineDispatchers: CoroutineDispatchers,
+    private val photoGroupSendUseCase: PhotoGroupSendUseCase,
 ) : ViewModel() {
 
     private val groupInfo = MutableStateFlow<GroupInfo?>(null)
@@ -68,6 +71,26 @@ class MessagesGroupViewModel @Inject constructor(
                     getChatGroupByIdUseCase.getChatGroupById(clusterId, userId, groupId).apply {
                         groupInfo.emit(GroupInfo(id, name, ""))
                     }
+                }
+            }
+        }
+    }
+
+    fun sendPhoto(groupId: String, stream: InputStream) {
+        viewModelScope.launch(coroutineDispatchers.io) {
+            clusterPreferences.getSelectedClusterId().firstOrNull()?.let { clusterId ->
+                userService.userUID?.let { userId ->
+                    photoGroupSendUseCase.sendPhoto(
+                        clusterId,
+                        groupId,
+                        userId,
+                        getChatGroupByIdUseCase.getChatGroupById(
+                            clusterId,
+                            userId,
+                            groupId
+                        ).members,
+                        stream,
+                    )
                 }
             }
         }

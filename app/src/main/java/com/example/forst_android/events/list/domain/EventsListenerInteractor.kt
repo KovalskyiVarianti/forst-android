@@ -4,5 +4,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface EventsListenerInteractor {
     fun addEventsListener(clusterId : String) : Flow<List<EventEntity>>
-    fun removeEventsListener(clusterId: String)
+    fun removeEventsListener()
 }

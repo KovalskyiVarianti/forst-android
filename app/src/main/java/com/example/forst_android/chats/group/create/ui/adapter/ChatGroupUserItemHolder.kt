@@ -8,10 +8,13 @@ import com.example.forst_android.databinding.ItemChatGroupUserBinding
 class ChatGroupUserItemHolder(private val binding: ItemChatGroupUserBinding) :
     ViewHolder(binding.root) {
 
-    fun bind(item: ChatGroupUserItem) = binding.apply {
+    fun bind(
+        item: ChatGroupUserItem,
+        onSelectionChange: (userId: String, isSelected: Boolean) -> Unit
+    ) = binding.apply {
         userName.text = item.name.takeIf { it.isNotBlank() } ?: item.phone
         selectionStateButton.setOnCheckedChangeListener { _, isChecked ->
-            item.isSelected = isChecked
+            onSelectionChange(item.id, isChecked)
         }
     }
 

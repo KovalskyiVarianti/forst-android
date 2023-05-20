@@ -36,7 +36,7 @@ class ChatPrivateCreateFragment : Fragment(R.layout.fragment_chat_private_create
         lifecycleScope.launch {
             chatPrivateCreateViewModel.clusterMembers.flowWithLifecycle(
                 lifecycle,
-                Lifecycle.State.CREATED
+                Lifecycle.State.STARTED
             ).collect { users ->
                 (binding.userList.adapter as ChatPrivateUserAdapter).submitList(users)
             }

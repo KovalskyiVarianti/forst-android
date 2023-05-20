@@ -29,7 +29,11 @@ class MapFollowedAdapter(
             oldItem: MapFollowedItem,
             newItem: MapFollowedItem
         ): Boolean {
-            return oldItem == newItem
+            return if (oldItem is MapFollowedItem.UserMapFollowedItem && newItem is MapFollowedItem.UserMapFollowedItem) {
+                oldItem.id == newItem.id && oldItem.name == newItem.name && oldItem.imageUrl == newItem.imageUrl
+            } else {
+                oldItem == newItem
+            }
         }
     }
 

@@ -1,6 +1,5 @@
 package com.example.forst_android.common.data.service
 
-import android.net.Uri
 import com.example.forst_android.common.domain.service.UserService
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
@@ -27,18 +26,10 @@ class FirebaseUserService @Inject constructor() : UserService {
         get() = firebaseAuth.currentUser?.displayName
 
     override val photoUrl
-        get() = firebaseAuth.currentUser?.photoUrl
+        get() = firebaseAuth.uid?.let { userId -> UserService.getPhotoUrl(userId) }
 
     override val isLoggedIn
         get() = firebaseAuth.currentUser != null
-
-    override suspend fun updatePhoto(uri: Uri?) {
-        firebaseAuth.currentUser?.updateProfile(
-            UserProfileChangeRequest.Builder()
-                .setPhotoUri(uri)
-                .build()
-        )
-    }
 
     override suspend fun signOut() {
         firebaseAuth.signOut()
@@ -50,5 +41,11 @@ class FirebaseUserService @Inject constructor() : UserService {
                 .setDisplayName(name)
                 .build()
         )?.addOnCompleteListener { _ -> it.resume(Unit) }
+    }
+
+    override suspend fun getIdToken(): String? = suspendCancellableCoroutine {
+        firebaseAuth.currentUser?.getIdToken(false)?.addOnCompleteListener { task ->
+            it.resume(task.result.token)
+        }
     }
 }

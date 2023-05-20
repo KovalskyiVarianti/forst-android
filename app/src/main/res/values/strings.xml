@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Forst</string>
+    <string name="app_name" translatable="false">Forst</string>
     <string name="name_title">Name:</string>
     <string name="email_title">Email</string>
     <string name="password_title">Password</string>
@@ -27,4 +27,35 @@
     <string name="user_name_empty">Put your username here</string>
     <string name="create_group">Create group</string>
     <string name="group_name">Group name</string>
+    <string name="choose_another_cluster">Choose another cluster</string>
+    <string name="my">My</string>
+    <string name="joined">Joined</string>
+    <string name="not_joined">Not joined</string>
+    <string name="empty_privates_message">There is no private chats yet.\nClick on the button in the right bottom corner to create a new one.</string>
+    <string name="empty_groups_message">There is no groups yet.\nClick on the button in the right bottom corner to create a new one.</string>
+    <string name="choose_from_gallery">Choose from gallery</string>
+    <string name="take_a_photo">Take a photo</string>
+    <string name="change_name">Change name</string>
+    <string name="add_new_event">Add new event</string>
+    <string name="follow_user">Follow user</string>
+    <string name="cluster_id">Cluster id</string>
+    <string name="is_private">Is private?</string>
+    <string name="name">Name</string>
+    <string name="date">Date</string>
+    <string name="start_time">Start Time</string>
+    <string name="end_time">End Time</string>
+    <string name="online" translatable="false">Online</string>
+    <string name="offline" translatable="false">Offline</string>
+    <string name="link">Link</string>
+    <string name="location_name">Location name</string>
+    <string name="create_new_event">Create new event</string>
+    <string name="no_messages_yet">No messages yet…</string>
+    <string name="active">Active</string>
+    <string name="ended">Ended</string>
+    <string name="mode_change_title">You are entering locations creation mode!</string>
+    <string name="change_mode_info">To add a location double click on a map and put info.\nClick \'OK\' to continue or \'Cancel\' to remain in view mode.</string>
+    <string name="add_point">Add point</string>
+    <string name="add">Add</string>
+    <string name="point_name">Point name</string>
+    <string name="message">Message...</string>
 </resources>

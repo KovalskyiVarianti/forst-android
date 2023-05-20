@@ -17,6 +17,7 @@ class ChatPrivateItemMapper @Inject constructor() {
                 if (chat.interlocutorId == selfId) "You" else chat.interlocutorName,
                 chat.interlocutorImageUrl,
                 chat.topMessageText.orEmpty(),
+                chat.topMessageType,
                 chat.topMessageSentTime?.let { formatter.format(it) }.orEmpty()
             )
         }

@@ -20,6 +20,7 @@ class DefaultClusterAllListenerInteractor @Inject constructor(
                     membersRealtimeDatabase.getMembersIds(cluster.id.orEmpty()),
                     cluster.name.orEmpty(),
                     cluster.ownerId.orEmpty(),
+                    cluster.private ?: false
                 )
             }
         }

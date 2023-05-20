@@ -6,12 +6,13 @@ import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.WindowManager
-import android.widget.LinearLayout
 import android.widget.PopupWindow
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.navigation.NavDirections
-import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.forst_android.R
+import com.example.forst_android.clusters.ui.dropdown.adapter.ClusterPopupAdapter
 import com.example.forst_android.common.ui.ItemClickListener
 import com.example.forst_android.databinding.ViewClustersPopupBinding
 import com.example.forst_android.home.ui.HomeFragmentDirections
@@ -36,6 +37,7 @@ class ClusterDropdown @JvmOverloads constructor(
     ) {
         text = clusterDropdownData.selectedCluster.name
         popupBinding.selectedClusterName.text = clusterDropdownData.selectedCluster.name
+        popupBinding.clusterListTitle.isVisible = clusterDropdownData.otherClusters.isNotEmpty()
         setOnClickListener {
             if (popupWindow == null) {
                 popupWindow = PopupWindow(
@@ -43,10 +45,16 @@ class ClusterDropdown @JvmOverloads constructor(
                     WindowManager.LayoutParams.WRAP_CONTENT,
                 ).apply {
                     isOutsideTouchable = true
-                    contentView = setupPopupBinding(clusterDropdownData.onSelected, onNavigated)
+                    contentView = setupPopupBinding(
+                        clusterDropdownData.onSelected,
+                        onNavigated
+                    )
                     setBackgroundDrawable(popupBackgroundDrawable)
                 }
             }
+            popupBinding.settingsIcon.isInvisible =
+                clusterDropdownData.selectedCluster.isOwner.not()
+
             (popupBinding.clusterList.adapter as? ClusterPopupAdapter)?.submitList(
                 clusterDropdownData.otherClusters
             )
@@ -70,7 +78,6 @@ class ClusterDropdown @JvmOverloads constructor(
                 popupWindow?.dismiss()
             }
             maxHeight = getDialogHeight(context.resources.displayMetrics.heightPixels)
-            addItemDecoration(DividerItemDecoration(context, LinearLayout.VERTICAL))
         }
         settingsIcon.setOnClickListener {
             popupWindow?.dismiss()

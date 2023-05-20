@@ -1,7 +1,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:padding="10dp">
 
 
@@ -10,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="Create new event"
+        android:text="@string/add_new_event"
         android:textColor="@color/on_background"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="10dp"
-        android:hint="Name"
+        android:hint="@string/name"
         android:textColorHint="@color/on_background"
         app:boxStrokeColor="@color/on_background"
         app:hintTextColor="@color/on_background"
@@ -45,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:hint="Date"
+        android:hint="@string/date"
         android:textColorHint="@color/on_background"
         app:boxStrokeColor="@color/on_background"
         app:hintTextColor="@color/on_background"
@@ -71,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:hint="Start Time"
+        android:hint="@string/start_time"
         android:textColorHint="@color/on_background"
         app:boxStrokeColor="@color/on_background"
         app:hintTextColor="@color/on_background"
@@ -96,7 +98,7 @@
         android:layout_margin="15dp"
         android:gravity="center"
         android:text="-"
-        android:textColor="@color/background_variant"
+        android:textColor="@color/on_background"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@id/startTimeLayout"
         app:layout_constraintEnd_toStartOf="@id/endTimeLayout"
@@ -111,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:hint="End Time"
+        android:hint="@string/end_time"
         android:textColorHint="@color/on_background"
         app:boxStrokeColor="@color/on_background"
         app:hintTextColor="@color/on_background"
@@ -146,7 +148,7 @@
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Online"
+            android:text="@string/online"
             android:textColor="@color/on_background" />
 
         <Button
@@ -154,17 +156,16 @@
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Offline"
+            android:text="@string/offline"
             android:textColor="@color/on_background" />
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <com.google.android.material.textfield.TextInputLayout
-
         android:id="@+id/locationNameLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Link"
+        android:hint="@string/link"
         android:textColorHint="@color/on_background"
         app:boxStrokeColor="@color/on_background"
         app:hintTextColor="@color/on_background"
@@ -178,13 +179,36 @@
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/pointListCard"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="@color/background"
+        app:cardCornerRadius="30dp"
+        app:layout_constraintBottom_toTopOf="@id/eventCreateButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/locationNameLayout"
+        tools:visibility="visible">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/pointList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="12"
+            tools:listitem="@layout/item_point" />
+    </androidx.cardview.widget.CardView>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/eventCreateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="Create new event"
+        android:text="@string/create_new_event"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/locationNameLayout" />
+        app:layout_constraintTop_toBottomOf="@id/pointListCard" />
 </androidx.constraintlayout.widget.ConstraintLayout>

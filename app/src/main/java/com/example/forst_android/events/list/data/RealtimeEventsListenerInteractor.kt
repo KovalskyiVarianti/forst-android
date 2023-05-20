@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class DefaultEventsListenerInteractor @Inject constructor(
+class RealtimeEventsListenerInteractor @Inject constructor(
     private val eventRealtimeDatabase: EventRealtimeDatabase
 ) : EventsListenerInteractor {
     override fun addEventsListener(clusterId: String): Flow<List<EventEntity>> {
@@ -25,7 +25,7 @@ class DefaultEventsListenerInteractor @Inject constructor(
         }
     }
 
-    override fun removeEventsListener(clusterId: String) {
-        eventRealtimeDatabase.removeEventListener(clusterId)
+    override fun removeEventsListener() {
+        eventRealtimeDatabase.removeEventListener()
     }
 }

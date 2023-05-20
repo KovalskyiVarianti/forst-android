@@ -2,6 +2,7 @@ package com.example.forst_android.chats.group.list.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -43,6 +44,7 @@ class ChatGroupFragment : Fragment(R.layout.fragment_chat_group) {
                 Lifecycle.State.STARTED
             ).collect { groups ->
                 (binding.chatList.adapter as ChatGroupAdapter).submitList(groups)
+                binding.emptyListMessage.isVisible = groups.isEmpty()
             }
         }
     }

@@ -15,10 +15,14 @@ class EventsViewModel @Inject constructor(
     private val eventListItemMapper: EventListItemMapper,
 ) : ViewModel() {
 
-    val events = clusterPreferences.getSelectedClusterId().flatMapMerge { clusterId ->
+    val eventsPages = clusterPreferences.getSelectedClusterId().flatMapMerge { clusterId ->
         eventsListenerInteractor.addEventsListener(clusterId.orEmpty())
     }.map { events ->
         eventListItemMapper.map(events)
+    }
 
+    override fun onCleared() {
+        eventsListenerInteractor.removeEventsListener()
+        super.onCleared()
     }
 }

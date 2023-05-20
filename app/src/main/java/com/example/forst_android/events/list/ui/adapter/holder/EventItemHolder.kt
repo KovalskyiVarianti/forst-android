@@ -12,7 +12,7 @@ class EventItemHolder(private val binding: ItemEventBinding) : EventListItemHold
         eventTime.text = item.eventTime
         eventType.text = item.type
         eventLocationName.text = item.locationName
-        eventLocation.text = item.location
+        //eventLocationName.text = item.location
     }
 
     companion object {

@@ -87,7 +87,6 @@ class FirebaseAuthService @Inject constructor(
                         user?.uid,
                         user?.displayName,
                         user?.phoneNumber,
-                        user?.photoUrl?.toString()
                     )
                 )
             }
@@ -104,5 +103,5 @@ class FirebaseAuthService @Inject constructor(
     }
 
     private fun isValidNumber(phoneNumber: String) =
-        phoneNumber.matches("^[+]\\d{10,13}\$".toRegex())
+        phoneNumber.matches("^[+]\\d{8,13}\$".toRegex())
 }

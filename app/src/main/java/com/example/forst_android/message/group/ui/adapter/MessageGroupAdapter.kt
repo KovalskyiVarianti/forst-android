@@ -5,7 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 
-class MessageGroupAdapter : ListAdapter<MessageGroupItem, MessageGroupItemHolder>(MessageGroupItemDiffCallback) {
+class MessageGroupAdapter :
+    ListAdapter<MessageGroupItem, MessageGroupItemHolder>(MessageGroupItemDiffCallback) {
 
     private companion object MessageGroupItemDiffCallback :
         DiffUtil.ItemCallback<MessageGroupItem>() {
@@ -30,21 +31,23 @@ class MessageGroupAdapter : ListAdapter<MessageGroupItem, MessageGroupItemHolder
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageGroupItemHolder {
-        return when(ViewType.values().first { it.type == viewType }) {
+        return when (ViewType.values().first { it.type == viewType }) {
             ViewType.TEXT -> MessageGroupTextHolder.from(parent)
-            ViewType.IMAGE -> TODO()
+            ViewType.IMAGE -> MessageGroupImageHolder.from(parent)
         }
     }
 
     override fun onBindViewHolder(holder: MessageGroupItemHolder, position: Int) {
         when (holder) {
             is MessageGroupTextHolder -> holder.bind(getItem(position) as MessageGroupItem.MessageGroupText)
+            is MessageGroupImageHolder -> holder.bind(getItem(position) as MessageGroupItem.MessageGroupImage)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
             is MessageGroupItem.MessageGroupText -> ViewType.TEXT.type
+            is MessageGroupItem.MessageGroupImage -> ViewType.IMAGE.type
         }
     }
 }

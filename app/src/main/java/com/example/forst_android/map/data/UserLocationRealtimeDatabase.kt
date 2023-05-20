@@ -34,6 +34,8 @@ class UserLocationRealtimeDatabase @Inject constructor(
 
     private var usersLocationsListener: ValueEventListener? = null
 
+    private var lastClusterId: String? = null
+
     fun sendLocation(
         clusterId: String,
         userId: String,
@@ -51,7 +53,8 @@ class UserLocationRealtimeDatabase @Inject constructor(
         clusterId: String,
         userIds: List<String>
     ): SharedFlow<List<UserLocationRealtimeEntity>> {
-        removeUsersLocationsListener(clusterId)
+        removeUsersLocationsListener()
+        lastClusterId = clusterId
         usersLocationsListener = locationDatabase.child(clusterId).addValueEventListener(
             DataEventListener { snapshot: DataSnapshot ->
                 snapshot.children.mapNotNull { child ->
@@ -65,8 +68,12 @@ class UserLocationRealtimeDatabase @Inject constructor(
         return usersLocations.asSharedFlow()
     }
 
-    fun removeUsersLocationsListener(clusterId: String) {
-        usersLocationsListener?.let { locationDatabase.child(clusterId).removeEventListener(it) }
+    fun removeUsersLocationsListener() {
+        usersLocationsListener?.let {
+            lastClusterId?.let { clusterId ->
+                locationDatabase.child(clusterId).removeEventListener(it)
+            }
+        }
         usersLocationsListener = null
     }
 }

@@ -2,6 +2,7 @@ package com.example.forst_android.map.data
 
 import com.example.forst_android.clusters.data.realtime.MembersRealtimeDatabase
 import com.example.forst_android.common.data.database.UserRealtimeDatabase
+import com.example.forst_android.common.domain.service.UserService
 import com.example.forst_android.map.domain.ClusterMapUserListenerInteractor
 import com.example.forst_android.map.domain.MapUserEntity
 import kotlinx.coroutines.flow.*
@@ -27,7 +28,7 @@ class DefaultClusterMapUserListenerInteractor @Inject constructor(
                     MapUserEntity(
                         followedUserId,
                         user.name ?: user.phoneNumber.orEmpty(),
-                        user.photoUri.orEmpty(),
+                        UserService.getPhotoUrl(followedUserId),
                         userRealtimeDatabase.isUserFollowed(clusterId, userId, followedUserId),
                         locations.find { it.id == followedUserId }?.enabled ?: false
                     )
@@ -36,8 +37,8 @@ class DefaultClusterMapUserListenerInteractor @Inject constructor(
         }
     }
 
-    override fun removeClusterMapUserListener(clusterId: String, userId: String) {
-        membersRealtimeDatabase.removeMembersIdsListener(clusterId)
+    override fun removeClusterMapUserListener() {
+        membersRealtimeDatabase.removeMembersIdsListener()
         userRealtimeDatabase.removeUsersByIdsListener()
     }
 }

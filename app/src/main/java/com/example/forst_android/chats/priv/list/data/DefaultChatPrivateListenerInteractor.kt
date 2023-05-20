@@ -19,7 +19,7 @@ class DefaultChatPrivateListenerInteractor @Inject constructor(
         }
     }
 
-    override fun removeChatListener(clusterId: String, userId: String) {
-        chatPrivateRealtimeDatabase.removeChatPrivateListener(clusterId, userId)
+    override fun removeChatListener() {
+        chatPrivateRealtimeDatabase.removeChatPrivateListener()
     }
 }

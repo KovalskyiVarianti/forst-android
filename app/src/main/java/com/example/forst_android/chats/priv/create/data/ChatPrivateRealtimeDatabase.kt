@@ -38,6 +38,9 @@ class ChatPrivateRealtimeDatabase @Inject constructor(
 
     private var chatPrivateEventListener: ValueEventListener? = null
 
+    private var lastClusterId: String? = null
+    private var lastUserId: String? = null
+
     suspend fun getPrivateChatId(clusterId: String, selfId: String, interlocutorId: String) =
         suspendCancellableCoroutine {
             chatsDatabase.child(clusterId).child(selfId).addListenerForSingleValueEvent(
@@ -67,7 +70,9 @@ class ChatPrivateRealtimeDatabase @Inject constructor(
         clusterId: String,
         userId: String
     ): SharedFlow<List<ChatPrivateRealtimeEntity>> {
-        removeChatPrivateListener(clusterId, userId)
+        removeChatPrivateListener()
+        lastClusterId = clusterId
+        lastUserId = userId
         chatPrivateEventListener = chatsDatabase
             .child(clusterId)
             .child(userId)
@@ -90,9 +95,13 @@ class ChatPrivateRealtimeDatabase @Inject constructor(
         return chatsPrivate.asSharedFlow()
     }
 
-    fun removeChatPrivateListener(clusterId: String, userId: String) {
+    fun removeChatPrivateListener() {
         chatPrivateEventListener?.let {
-            chatsDatabase.child(clusterId).child(userId).removeEventListener(it)
+            lastClusterId?.let { clusterId ->
+                lastUserId?.let { userId ->
+                    chatsDatabase.child(clusterId).child(userId).removeEventListener(it)
+                }
+            }
         }
         chatPrivateEventListener = null
     }

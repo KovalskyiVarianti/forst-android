@@ -5,5 +5,5 @@ data class EventCreateData(
     val startTime: Long,
     val endTime: Long,
     val type: String,
-    val locationName: String,
+    val eventLocation: EventLocation,
 )

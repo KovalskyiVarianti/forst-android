@@ -2,8 +2,10 @@ package com.example.forst_android.message.priv.di
 
 import com.example.forst_android.message.priv.data.DefaultGetUserByIdUseCase
 import com.example.forst_android.message.priv.data.DefaultMessageSendUseCase
+import com.example.forst_android.message.priv.data.DefaultPhotoSendUseCase
 import com.example.forst_android.message.priv.domain.GetUserByIdUseCase
 import com.example.forst_android.message.priv.domain.MessageSendUseCase
+import com.example.forst_android.message.priv.domain.PhotoSendUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -16,10 +18,15 @@ interface UseCaseModule {
     @Binds
     fun messageSendUseCase(
         defaultMessageSendUseCase: DefaultMessageSendUseCase
-    ) : MessageSendUseCase
+    ): MessageSendUseCase
 
     @Binds
     fun getUserByIdUseCase(
         defaultGetUseByIdUseCase: DefaultGetUserByIdUseCase
-    ) : GetUserByIdUseCase
+    ): GetUserByIdUseCase
+
+    @Binds
+    fun photoSendUseCase(
+        defaultPhotoSendUseCase: DefaultPhotoSendUseCase,
+    ): PhotoSendUseCase
 }

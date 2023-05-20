@@ -2,6 +2,7 @@ package com.example.forst_android.message.priv.data
 
 import com.example.forst_android.message.priv.domain.MessagePrivateEntity
 import com.example.forst_android.message.priv.domain.MessageListenerInteractor
+import com.example.forst_android.message.priv.domain.MessageType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -22,9 +23,13 @@ class DefaultMessageListenerInteractor @Inject constructor(
                         message.data.orEmpty(),
                         message.senderId.orEmpty(),
                         message.sentTime!!,
-                        message.type.orEmpty(),
+                        try {
+                            MessageType.valueOf(message.type.orEmpty())
+                        } catch (e: Exception) {
+                            MessageType.TEXT
+                        },
                     )
-                }
+                }.sortedBy { it.sendTime }
             }
     }
 

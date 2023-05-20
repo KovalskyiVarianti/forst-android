@@ -37,12 +37,15 @@ class MembersRealtimeDatabase @Inject constructor(
 
     private var membersIdsListener: ValueEventListener? = null
 
+    private var lastClusterId: String? = null
+
     fun joinCluster(userId: String, clusterId: String) {
         membersDatabase.child(clusterId).child(userId).setValue(true)
     }
 
     fun addClusterMembersIdsListener(clusterId: String): SharedFlow<List<String>> {
-        removeMembersIdsListener(clusterId)
+        removeMembersIdsListener()
+        lastClusterId = clusterId
         membersIdsListener = membersDatabase
             .child(clusterId)
             .addValueEventListener(
@@ -61,9 +64,11 @@ class MembersRealtimeDatabase @Inject constructor(
         return membersIds.asSharedFlow()
     }
 
-    fun removeMembersIdsListener(clusterId: String) {
+    fun removeMembersIdsListener() {
         membersIdsListener?.let {
-            membersDatabase.child(clusterId).removeEventListener(it)
+            lastClusterId?.let { clusterId ->
+                membersDatabase.child(clusterId).removeEventListener(it)
+            }
         }
         membersIdsListener = null
     }

@@ -1,10 +1,16 @@
 package com.example.forst_android.events.create.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.example.forst_android.R
 import com.example.forst_android.common.ui.viewBinding
 import com.example.forst_android.databinding.FragmentEventCreateBinding
@@ -12,6 +18,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -72,10 +79,25 @@ class EventCreateFragment : Fragment(R.layout.fragment_event_create) {
                 if (isChecked.not()) return@addOnButtonCheckedListener
                 when (checkedId) {
                     onlineButton.id -> {
-                        locationNameLayout.hint = "Link"
+                        locationNameLayout.hint = getString(R.string.link)
+                        locationNameInput.apply {
+                            isCursorVisible = true
+                            isFocusable = true
+                            isFocusableInTouchMode = true
+                            setText("")
+                        }
+                        pointListCard.isVisible = false
                     }
                     offlineButton.id -> {
-                        locationNameLayout.hint = "Location name"
+                        root.hideKeyboard()
+                        locationNameLayout.hint = getString(R.string.location_name)
+                        locationNameInput.apply {
+                            isCursorVisible = false
+                            isFocusable = false
+                            isFocusableInTouchMode = false
+                            setText("")
+                        }
+                        pointListCard.isVisible = true
                     }
                 }
             }
@@ -87,17 +109,51 @@ class EventCreateFragment : Fragment(R.layout.fragment_event_create) {
                 val eventEndTime = endTimeInput.text.toString()
                 val eventType =
                     locationTypeToggleButton.findViewById<Button>(locationTypeToggleButton.checkedButtonId).text.toString()
-                val eventLocation = locationNameInput.text.toString()
+                val eventLocation = when (eventType) {
+                    getString(R.string.online) -> locationNameInput.text.toString()
+                        .let { EventLocation(it, it) }
+                    getString(R.string.offline) -> eventCreateViewModel.getSelectedEventLocation().value?.let {
+                        EventLocation(
+                            it.locationName,
+                            it.location
+                        )
+                    }
+                    else -> throw IllegalArgumentException()
+                }
                 eventCreateViewModel.createEvent(
                     EventCreateData(
                         eventName,
                         getTimeWithDate(eventStartTime, eventDate),
                         getTimeWithDate(eventEndTime, eventDate),
                         eventType,
-                        eventLocation
+                        eventLocation!!,
                     )
                 )
                 activity?.onBackPressedDispatcher?.onBackPressed()
+            }
+
+            pointList.adapter = PointAdapter { point ->
+                eventCreateViewModel.selectEventLocation(point.name, point.id)
+            }
+
+            lifecycleScope.launch {
+                eventCreateViewModel.points.flowWithLifecycle(
+                    lifecycle,
+                    Lifecycle.State.CREATED
+                ).collect { points ->
+                    (pointList.adapter as PointAdapter).submitList(points)
+                }
+            }
+
+            lifecycleScope.launch {
+                eventCreateViewModel.getSelectedEventLocation().flowWithLifecycle(
+                    lifecycle,
+                    Lifecycle.State.CREATED
+                ).collect { eventLocation ->
+                    eventLocation?.let {
+                        locationNameInput.setText(it.locationName)
+                    }
+                }
             }
         }
     }
@@ -114,6 +170,11 @@ class EventCreateFragment : Fragment(R.layout.fragment_event_create) {
         set(Calendar.HOUR_OF_DAY, hour)
         set(Calendar.MINUTE, minute)
         timeInMillis
+    }
+
+    private fun View.hideKeyboard() {
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(windowToken, 0)
     }
 
 }

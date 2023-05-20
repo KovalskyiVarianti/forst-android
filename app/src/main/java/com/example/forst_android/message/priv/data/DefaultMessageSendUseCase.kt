@@ -1,6 +1,7 @@
 package com.example.forst_android.message.priv.data
 
 import com.example.forst_android.message.priv.domain.MessageSendUseCase
+import com.example.forst_android.message.priv.domain.MessageType
 import java.util.UUID
 import javax.inject.Inject
 
@@ -12,14 +13,14 @@ class DefaultMessageSendUseCase @Inject constructor(
         chatId: String,
         userId: String,
         interlocutorId: String,
-        message: String
+        message: String,
     ) {
         val messageId = UUID.randomUUID().toString()
         val messageEntity = MessageRealtimeEntity(
             messageId,
             userId,
             message,
-            null,
+            MessageType.TEXT.name,
             System.currentTimeMillis()
         )
         messageRealtimeDatabase.sendMessage(

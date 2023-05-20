@@ -4,5 +4,6 @@ data class ChatPrivateUserItem(
     val id: String,
     val name: String,
     val phone: String,
+    val photo: String,
     val isSelf: Boolean,
 )

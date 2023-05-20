@@ -4,17 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/primary"
     android:layout_marginHorizontal="2dp"
-    android:layout_marginTop="2dp"
-    android:background="@color/background_variant">
+    android:layout_marginTop="2dp">
 
     <TextView
         android:id="@+id/eventDateText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"
+        android:layout_margin="5dp"
         android:textColor="@color/on_primary"
         android:textSize="16sp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
